@@ -4,7 +4,7 @@ Please go under edit and edit this file as needed for your project
 # Team Name - 
 # Project Group - 
 ### Group Leader - IT20212232 - Mr. Asiri Gamage (asiriRepos)
-### Member 2 - 
+### Member 2 -  IT21024672 - Weerasinghe N.S.I (sula15)
 ### Member 3 - 
 ### Member 4 - 
 
