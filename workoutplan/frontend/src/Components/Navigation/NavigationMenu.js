@@ -1,12 +1,11 @@
 import HomeIcon from "@mui/icons-material/Home"
 import ExploreIcon from "@mui/icons-material/Explore"
 import NotificationIcon from "@mui/icons-material/Notifications"
-import MessageIcon from '@mui/icons-material/Message';
-//import ListAltIcon from '@mui/icons-material/ListAlt';
-//import GroupIcon from '@mui/icons-material/Group';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PendingIcon from '@mui/icons-material/Pending';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 
 export const navigationMenu = [
@@ -17,15 +16,21 @@ export const navigationMenu = [
     },
 
     {
-        title: "Profile",
-        icon:<AccountCircleIcon/>,
-        path:"/profile"
+        title: "Workout Plans",
+        icon:<EventNoteIcon/>,
+        path:"/workoutplan"
     },
 
     {
-        title: "Explore",
-        icon:<ExploreIcon/>,
-        path:"/explore"
+        title: "Meal Plans",
+        icon:<RestaurantIcon/>,
+        path:"/mealplan"
+    },
+
+    {
+        title: "Profile",
+        icon:<AccountCircleIcon/>,
+        path:"/profile"
     },
 
     {
@@ -35,15 +40,15 @@ export const navigationMenu = [
     },
 
     {
-        title: "Messages",
-        icon:<MessageIcon/>,
-        path:"/messages"
-    },
-
-    {
         title: "Verified",
         icon:<VerifiedIcon/>,
         path:"/verified"
+    },
+
+    {
+        title: "Explore",
+        icon:<ExploreIcon/>,
+        path:"/explore"
     },
 
     {
