@@ -48,12 +48,12 @@ const Navigation = () => {
                 </div>
             </div>
 
-            <div className='flex items-center justify-between' style={{ marginTop: '100px', marginBottom: '20px' }}>
+            <div className='flex items-center justify-between' style={{ marginTop: '80px', marginBottom: '20px' }}>
                 <div className='flex items-center space-x-3'>
-                    <Avatar>
+                    <Avatar
                         alt = "username"
-                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrowmdX6ori_jJ9sC6eU8O1eNxhicSVNsg4NMIY9epBQ&s'
-                    </Avatar>
+                        src='https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg'
+                    />
 
                     <div>
                         <span>Raam Kapoor</span>
