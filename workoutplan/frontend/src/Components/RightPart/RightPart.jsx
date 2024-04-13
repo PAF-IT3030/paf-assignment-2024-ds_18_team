@@ -13,7 +13,7 @@ const RightPart = () => {
     <div className='py-5 sticky top' style={{ marginTop: '20px' }}>
         <div className='relative flex otems-center'>
 
-            <input type="text" className='py-3 rounded-full text-gray-500 w-full pl-12'/>
+            <input type="text" className='py-3 rounded-full text-gray-500 w-full pl-12' style={{border: '1px solid #666'}}/>
 
             <div className='absolute top-0 left-0 pl-3 pt-3'>
                 <SearchIcon className='text-gray-500'/>
