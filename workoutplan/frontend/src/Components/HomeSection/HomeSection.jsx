@@ -30,7 +30,7 @@ const HomeSection = () => {
         <section className={`pb-10`}>
             <div className='flex space-x-5'>
                 <Avatar alt = "username"
-                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrowmdX6ori_jJ9sC6eU8O1eNxhicSVNsg4NMIY9epBQ&s'
+                        src='https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg'
                 />
                 <div className='w-full'>
                     <form>
