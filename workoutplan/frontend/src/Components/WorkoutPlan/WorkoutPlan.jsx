@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { useFormik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
 
@@ -45,6 +46,12 @@ export default function WorkoutPlan({ open, handleClose }) {
       ...prevState,
       exercises: [...prevState.exercises, { name: "", sets: "", reps: "" }]
     }));
+  };
+
+  const removeExerciseField = (index) => {
+    const exercises = [...formik.values.exercises];
+    exercises.splice(index, 1);
+    formik.setValues({ ...formik.values, exercises });
   };
 
   const handleExerciseChange = (index, field, value) => {
@@ -135,10 +142,12 @@ export default function WorkoutPlan({ open, handleClose }) {
                 <div id="exercises">
                   {formik.values.exercises.map((exercise, index) => (
                     <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
-                      <label htmlFor={`exercise${index + 1}`}><strong>{`Exercise ${index + 1}`}</strong></label>
-
-                      <div style={{ marginBottom: '10px' }}></div>
-
+                      <div className="flex items-center justify-between mb-2">
+                        <label htmlFor={`exercise${index + 1}`}><strong>{`Exercise ${index + 1}`}</strong></label>
+                        <IconButton onClick={() => removeExerciseField(index)} aria-label="delete exercise" color="primary">
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
                       <TextField
                         fullWidth
                         id={`exercise${index + 1}`}
