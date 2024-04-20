@@ -1,12 +1,15 @@
 package com.paf.socailfitnessapplication.service;
 
+import com.paf.socailfitnessapplication.dto.WorkoutStatusUpdateDTO;
+import com.paf.socailfitnessapplication.dto.WorkoutStatusUpdateResponseDTO;
 import com.paf.socailfitnessapplication.entity.WorkoutStatusUpdate;
 
 import java.util.Optional;
 
+// WorkoutStatusUpdateService.java
 public interface WorkoutStatusUpdateService {
-    WorkoutStatusUpdate createWorkoutStatusUpdate(WorkoutStatusUpdate workoutStatusUpdate);
-    Optional<WorkoutStatusUpdate> getWorkoutStatusUpdate(String id);
-    Optional<WorkoutStatusUpdate> updateWorkoutStatusUpdate(String id, WorkoutStatusUpdate workoutStatusUpdate);
+    WorkoutStatusUpdate createWorkoutStatusUpdate(WorkoutStatusUpdateDTO workoutStatusUpdateDTO);
+    Optional<WorkoutStatusUpdateResponseDTO> getWorkoutStatusUpdate(String id);
+    Optional<WorkoutStatusUpdateResponseDTO> updateWorkoutStatusUpdate(String id, WorkoutStatusUpdateDTO workoutStatusUpdateDTO);
     boolean deleteWorkoutStatusUpdate(String id);
 }

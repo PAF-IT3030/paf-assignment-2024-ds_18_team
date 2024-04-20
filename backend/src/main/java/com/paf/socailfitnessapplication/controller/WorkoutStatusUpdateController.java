@@ -1,8 +1,10 @@
 package com.paf.socailfitnessapplication.controller;
 
-import com.paf.socailfitnessapplication.entity.WorkoutStatusUpdate;
+import com.paf.socailfitnessapplication.dto.WorkoutStatusUpdateDTO;
+import com.paf.socailfitnessapplication.dto.WorkoutStatusUpdateResponseDTO;
 import com.paf.socailfitnessapplication.service.WorkoutStatusUpdateService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,21 +16,23 @@ import java.util.Optional;
 public class WorkoutStatusUpdateController {
 
     private final WorkoutStatusUpdateService workoutStatusUpdateService;
+    private final ModelMapper modelMapper;
+
 
     @PostMapping
-    public WorkoutStatusUpdate createWorkoutStatusUpdate(@RequestBody WorkoutStatusUpdate workoutStatusUpdate) {
-        return workoutStatusUpdateService.createWorkoutStatusUpdate(workoutStatusUpdate);
+    public WorkoutStatusUpdateResponseDTO createWorkoutStatusUpdate(@RequestBody WorkoutStatusUpdateDTO workoutStatusUpdateDTO) {
+        return modelMapper.map(workoutStatusUpdateService.createWorkoutStatusUpdate(workoutStatusUpdateDTO), WorkoutStatusUpdateResponseDTO.class);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<WorkoutStatusUpdate> getWorkoutStatusUpdate(@PathVariable String id) {
-        Optional<WorkoutStatusUpdate> workoutStatusUpdate = workoutStatusUpdateService.getWorkoutStatusUpdate(id);
+    public ResponseEntity<WorkoutStatusUpdateResponseDTO> getWorkoutStatusUpdate(@PathVariable String id) {
+        Optional<WorkoutStatusUpdateResponseDTO> workoutStatusUpdate = workoutStatusUpdateService.getWorkoutStatusUpdate(id);
         return workoutStatusUpdate.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<WorkoutStatusUpdate> updateWorkoutStatusUpdate(@PathVariable String id, @RequestBody WorkoutStatusUpdate workoutStatusUpdate) {
-        Optional<WorkoutStatusUpdate> updatedWorkoutStatusUpdate = workoutStatusUpdateService.updateWorkoutStatusUpdate(id, workoutStatusUpdate);
+    public ResponseEntity<WorkoutStatusUpdateResponseDTO> updateWorkoutStatusUpdate(@PathVariable String id, @RequestBody WorkoutStatusUpdateDTO workoutStatusUpdateDTO) {
+        Optional<WorkoutStatusUpdateResponseDTO> updatedWorkoutStatusUpdate = workoutStatusUpdateService.updateWorkoutStatusUpdate(id, workoutStatusUpdateDTO);
         return updatedWorkoutStatusUpdate.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -38,3 +42,4 @@ public class WorkoutStatusUpdateController {
         return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 }
+
