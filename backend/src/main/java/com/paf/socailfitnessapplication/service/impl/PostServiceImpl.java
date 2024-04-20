@@ -25,8 +25,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
+    public List<Post> getAllPostsByUserId(String userId) {
+        return postRepository.findByUserId(userId);
     }
 
     @Override
@@ -47,4 +47,3 @@ public class PostServiceImpl implements PostService {
         return false;
     }
 }
-
