@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-SocailfitnessapplicationApplication<socailfitnessapplication>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.paf.socailfitnessapplication.SocailfitnessapplicationApplication",
+      "projectName": "socailfitnessapplication",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
