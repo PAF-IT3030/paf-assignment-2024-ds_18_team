@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import ImageIcon from '@mui/icons-material/Image';
 import FmdGoodIcon from '@mui/icons-material/FmdGood';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
+import PostCard from './PostCard';
 
 const validationSchema = Yup.object().shape({
     content: Yup.string().required("Text is required")
@@ -105,7 +106,7 @@ const HomeSection = () => {
 
             </section>
             <section>
-                
+           {[1,1,1,1,1].map((item)=><PostCard/>)}
             </section>
 
         </div>
