@@ -10,7 +10,7 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-import WorkoutPlanPage from '../WorkoutPlan/WorkoutPlanPage';
+import MealPlanPage from '../MealPlan/MealPlanPage';
 
 const Profile = () => {
 
@@ -57,7 +57,7 @@ const Profile = () => {
                 <div className='flex justify-between items-start mt-5 h-[5rem]'>
 
                     <Avatar className='transform -translate-y-24'
-                        alt='code with zoch' src='https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg'
+                        alt='raam kapoor' src='https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg'
                         sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
                     />
 
@@ -126,7 +126,7 @@ const Profile = () => {
                         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                             <TabList onChange={handleTabChange} aria-label="lab API tabs example">
                                 <Tab label="Posts" value="1" style={{ color: tabValue === "1" ? '#20207D' : '#6B7280' }} />
-                                <Tab label="Workout Plans" value="2" style={{ color: tabValue === "2" ? '#20207D' : '#6B7280' }} />
+                                <Tab label="Workout  Plans" value="2" style={{ color: tabValue === "2" ? '#20207D' : '#6B7280' }} />
                                 <Tab label="Meal Plans" value="3" style={{ color: tabValue === "3" ? '#20207D' : '#6B7280' }} />
                             </TabList>
                         </Box>
@@ -143,3 +143,4 @@ const Profile = () => {
 }
 
 export default Profile
+ 

@@ -1,25 +1,25 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-import WorkoutPlan from '../WorkoutPlan/WorkoutPlan';
+import MealPlan from '../MealPlan/MealPlan';
 
-const WorkoutPlanPage = () => {
+const MealPlanPage = () => {
 
-    const [openWorkoutPlan, setOpenWorkoutPlan] = useState(false);
-    const handleOpenWorkoutPlan = () => setOpenWorkoutPlan(true);
-    const handleClose = () => setOpenWorkoutPlan(false);
+    const [openMealPlan, setOpenMealPlan] = useState(false);
+    const handleOpenMealPlan = () => setOpenMealPlan(true);
+    const handleClose = () => setOpenMealPlan(false);
 
     return (
         <div>
             <section>
                 <div className='flex justify-end items-start mt-5 h-[5rem]'>
                     <section>
-                        <WorkoutPlan handleClose={handleClose} open={openWorkoutPlan} />
+                        <MealPlan handleClose={handleClose} open={openMealPlan} />
                     </section>
                     <Button
-                        onClick={handleOpenWorkoutPlan}
+                        onClick={handleOpenMealPlan}
                         variant='contained'
                         sx={{ borderRadius: "20px", bgcolor: '#20207D', ml: 'auto' }}>
-                        Add Workout Plan
+                        Add Meal Plan
                     </Button>
                 </div>
             </section>
@@ -27,6 +27,6 @@ const WorkoutPlanPage = () => {
 
 
     )
-}
+} 
 
-export default WorkoutPlanPage
+export default MealPlanPage
