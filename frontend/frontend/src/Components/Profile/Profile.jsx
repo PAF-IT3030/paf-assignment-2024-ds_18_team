@@ -128,11 +128,13 @@ const Profile = () => {
                                 <Tab label="Posts" value="1" style={{ color: tabValue === "1" ? '#20207D' : '#6B7280' }} />
                                 <Tab label="Workout Plans" value="2" style={{ color: tabValue === "2" ? '#20207D' : '#6B7280' }} />
                                 <Tab label="Meal Plans" value="3" style={{ color: tabValue === "3" ? '#20207D' : '#6B7280' }} />
+                                <Tab label="Workout Status" value="4" style={{ color: tabValue === "4" ? '#20207D' : '#6B7280' }} />
                             </TabList>
                         </Box>
                         <TabPanel value="1">Users Posts</TabPanel>
                         <TabPanel value="2"><WorkoutPlanPage/></TabPanel>
                         <TabPanel value="3">Users Meal plans</TabPanel>
+                        <TabPanel value="4">Workout Status</TabPanel>
                     </TabContext>
                 </Box>
             </section>
