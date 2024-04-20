@@ -22,7 +22,7 @@ const style = {
   borderRadius: 4,
 };
 
-export default function WorkoutPlan({ open, handleClose }) {
+export default function MealPlan({ open, handleClose }) {
 
   const handleSubmit = (values) => {
     console.log("handle submit", values)
@@ -34,30 +34,30 @@ export default function WorkoutPlan({ open, handleClose }) {
       description: "",
       intensity: "",
       routine: "",
-      exercises: [{ name: "", sets: "", reps: "" }], // Initialize exercises array with an empty object
+      mealplans: [{ name: "", sets: "", reps: "" }], // Initialize mealplans array with an empty object
       duration: "",
       notes: ""
     },
     onSubmit: handleSubmit
   });
 
-  const addExerciseField = () => {
+  const addMealplanField = () => {
     formik.setValues(prevState => ({
       ...prevState,
-      exercises: [...prevState.exercises, { name: "", sets: "", reps: "" }]
+      mealplans: [...prevState.mealplans, { name: "", sets: "", reps: "" }]
     }));
   };
 
-  const removeExerciseField = (index) => {
-    const exercises = [...formik.values.exercises];
-    exercises.splice(index, 1);
-    formik.setValues({ ...formik.values, exercises });
+  const removeMealplanField = (index) => {
+    const mealplans = [...formik.values.mealplans];
+    mealplans.splice(index, 1);
+    formik.setValues({ ...formik.values, mealplans });
   };
 
-  const handleExerciseChange = (index, field, value) => {
-    const exercises = [...formik.values.exercises];
-    exercises[index][field] = value;
-    formik.setValues({ ...formik.values, exercises });
+  const handleMealplanChange = (index, field, value) => {
+    const mealplans = [...formik.values.mealplans];
+    mealplans[index][field] = value;
+    formik.setValues({ ...formik.values, mealplans });
   };
 
   return (
@@ -75,7 +75,7 @@ export default function WorkoutPlan({ open, handleClose }) {
                 <IconButton onClick={handleClose} aria-label='delete'>
                   <CloseIcon />
                 </IconButton>
-                <p className=''>Add Workout Plan</p>
+                <p className=''>Add Meal Plan</p>
               </div>
               <Button type='submit'>Save</Button>
             </div>
@@ -139,39 +139,39 @@ export default function WorkoutPlan({ open, handleClose }) {
 
                 <div style={{ marginBottom: '50px' }}></div>
 
-                <div id="exercises">
-                  {formik.values.exercises.map((exercise, index) => (
+                <div id="mealplans">
+                  {formik.values.mealplans.map((mealplan, index) => (
                     <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
                       <div className="flex items-center justify-between mb-2">
-                        <label htmlFor={`exercise${index + 1}`}><strong>{`Exercise ${index + 1}`}</strong></label>
-                        <IconButton onClick={() => removeExerciseField(index)} aria-label="delete exercise" color="primary">
+                        <label htmlFor={`mealplan${index + 1}`}><strong>{`Mealplan ${index + 1}`}</strong></label>
+                        <IconButton onClick={() => removeMealplanField(index)} aria-label="delete mealplan" color="primary">
                           <DeleteIcon />
                         </IconButton>
                       </div>
                       <TextField
                         fullWidth
-                        id={`exercise${index + 1}`}
-                        name={`exercise${index}.name`}
-                        value={formik.values.exercises[index].name}
-                        onChange={(e) => handleExerciseChange(index, 'name', e.target.value)}
-                        label="Exercise Name"
+                        id={`mealplan${index + 1}`}
+                        name={`mealplan${index}.name`}
+                        value={formik.values.mealplans[index].name}
+                        onChange={(e) => handleMealplanChange(index, 'name', e.target.value)}
+                        label="Mealplans Name"
                         required
                         style={{ marginBottom: '10px' }}
                       />
                       <div className="flex justify-between">
                         <TextField
                           id={`sets${index + 1}`}
-                          name={`exercise${index}.sets`}
-                          value={formik.values.exercises[index].sets}
-                          onChange={(e) => handleExerciseChange(index, 'sets', e.target.value)}
+                          name={`mealplan${index}.sets`}
+                          value={formik.values.mealplans[index].sets}
+                          onChange={(e) => handleMealplanChange(index, 'sets', e.target.value)}
                           label="Sets"
                           required
                         />
                         <TextField
                           id={`reps${index + 1}`}
-                          name={`exercise${index}.reps`}
-                          value={formik.values.exercises[index].reps}
-                          onChange={(e) => handleExerciseChange(index, 'reps', e.target.value)}
+                          name={`mealplan${index}.reps`}
+                          value={formik.values.mealplans[index].reps}
+                          onChange={(e) => handleMealplanChange(index, 'reps', e.target.value)}
                           label="Repetitions"
                           required
                         />
@@ -183,9 +183,9 @@ export default function WorkoutPlan({ open, handleClose }) {
                   type="button"
                   variant="outlined"
                   color="primary"
-                  onClick={addExerciseField}
+                  onClick={addMealplanField}
                 >
-                  Add Exercise
+                  Add Meal Plan
                 </Button>
 
                 <div style={{ marginBottom: '30px' }}></div>

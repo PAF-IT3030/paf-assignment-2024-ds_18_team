@@ -10,36 +10,35 @@ const HomePage = () => {
   return (
     <Grid container xs={12} className='px-5 lg:px-36 justify-betwee'>
 
-        <Grid item xs={0} lg={2.5} className='hidden lg:block w-full relative'>
-            <Navigation/>
+      <Grid item xs={0} lg={2.5} className='hidden lg:block w-full relative'>
+        <Navigation />
 
-        </Grid>
+      </Grid>
 
-        <Grid item xs={12} lg={6} 
+      <Grid item xs={12} lg={6}
         className='px-5 lg:px-9 hidden lg:block w-full relative'>
 
 
         <Routes>
-          <Route path="/"> element={ <HomeSection/>}</Route>
-          <Route path="/profile/:id"> element={ <Profile/>}</Route>
-
-
-
+          <Route path="/profile/:id" element={<Profile />} />
+          {/* Other routes */}
         </Routes>
 
+        <HomeSection />
 
-       
 
-        </Grid>
 
-        <Grid item xs={0} lg={3} className='hidden lg:block w-full relative'>
-       <RightPart/>
 
-        </Grid>
+      </Grid>
+
+      <Grid item xs={0} lg={3} className='hidden lg:block w-full relative'>
+        <RightPart />
+
+      </Grid>
 
 
     </Grid>
-   
+
   )
 }
 export default HomePage

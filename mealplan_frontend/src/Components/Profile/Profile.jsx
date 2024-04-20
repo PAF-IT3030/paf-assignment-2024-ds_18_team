@@ -12,6 +12,8 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import MealPlanPage from '../MealPlan/MealPlanPage';
 
+
+
 const Profile = () => {
 
     const navigate = useNavigate();
@@ -38,6 +40,7 @@ const Profile = () => {
             console.log("posts")
         }
     }
+    
 
     return (
         <div style={{ marginTop: '20px' }}>
@@ -131,8 +134,11 @@ const Profile = () => {
                             </TabList>
                         </Box>
                         <TabPanel value="1">Users Posts</TabPanel>
-                        <TabPanel value="2"><WorkoutPlanPage/></TabPanel>
-                        <TabPanel value="3">Users Meal plans</TabPanel>
+                        <TabPanel value="2">Users Workout plans</TabPanel>
+                        <TabPanel value="3"><MealPlanPage/></TabPanel>
+                        
+                      
+
                     </TabContext>
                 </Box>
             </section>
@@ -143,4 +149,8 @@ const Profile = () => {
 }
 
 export default Profile
- 
+
+
+
+
+   
