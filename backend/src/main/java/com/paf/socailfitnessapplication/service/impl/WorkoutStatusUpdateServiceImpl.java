@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +23,23 @@ public class WorkoutStatusUpdateServiceImpl implements WorkoutStatusUpdateServic
 
     @Override
     public WorkoutStatusUpdate createWorkoutStatusUpdate(WorkoutStatusUpdateDTO workoutStatusUpdateDTO) {
+        // Generate a unique identifier (id) for the new workout status update entry
+        String id = UUID.randomUUID().toString();
+
+        // Map WorkoutStatusUpdateDTO to WorkoutStatusUpdate entity
         WorkoutStatusUpdate workoutStatusUpdate = modelMapper.map(workoutStatusUpdateDTO, WorkoutStatusUpdate.class);
+
+        // Associate the generated id and the user ID with the workout status update
+        workoutStatusUpdate.setId(id);
+        workoutStatusUpdate.setUserId(workoutStatusUpdateDTO.getUserId());
+
+        // Set the current timestamp
         workoutStatusUpdate.setTimestamp(LocalDateTime.now());
+
+        // Save the workout status update entity to the database
         return workoutStatusUpdateRepository.save(workoutStatusUpdate);
     }
+
 
     @Override
     public Optional<WorkoutStatusUpdateResponseDTO> getWorkoutStatusUpdate(String id) {
