@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.modelmapper.ModelMapper;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +22,7 @@ public class WorkoutStatusUpdateServiceImpl implements WorkoutStatusUpdateServic
     private final WorkoutStatusUpdateRepository workoutStatusUpdateRepository;
     private final ModelMapper modelMapper;
 
+    // Method to create a new workout status update
     @Override
     public WorkoutStatusUpdate createWorkoutStatusUpdate(WorkoutStatusUpdateDTO workoutStatusUpdateDTO) {
         // Generate a unique identifier (id) for the new workout status update entry
@@ -42,13 +42,14 @@ public class WorkoutStatusUpdateServiceImpl implements WorkoutStatusUpdateServic
         return workoutStatusUpdateRepository.save(workoutStatusUpdate);
     }
 
-
+    // Method to retrieve a workout status update by its ID
     @Override
     public Optional<WorkoutStatusUpdateResponseDTO> getWorkoutStatusUpdate(String id) {
         Optional<WorkoutStatusUpdate> workoutStatusUpdate = workoutStatusUpdateRepository.findById(id);
         return workoutStatusUpdate.map(statusUpdate -> modelMapper.map(statusUpdate, WorkoutStatusUpdateResponseDTO.class));
     }
 
+    // Method to retrieve all workout status updates for a specific user
     @Override
     public List<WorkoutStatusUpdateResponseDTO> getWorkoutStatusUpdatesForUser(String userId) {
         List<WorkoutStatusUpdate> workoutStatusUpdates = workoutStatusUpdateRepository.findByUserId(userId);
@@ -57,7 +58,7 @@ public class WorkoutStatusUpdateServiceImpl implements WorkoutStatusUpdateServic
                 .collect(Collectors.toList());
     }
 
-
+    // Method to update an existing workout status update
     @Override
     public Optional<WorkoutStatusUpdateResponseDTO> updateWorkoutStatusUpdate(String id, WorkoutStatusUpdateDTO workoutStatusUpdateDTO) {
         Optional<WorkoutStatusUpdate> existingStatusUpdate = workoutStatusUpdateRepository.findById(id);
@@ -71,6 +72,7 @@ public class WorkoutStatusUpdateServiceImpl implements WorkoutStatusUpdateServic
         return Optional.empty();
     }
 
+    // Method to delete an existing workout status update by its ID
     @Override
     public boolean deleteWorkoutStatusUpdate(String id) {
         if (workoutStatusUpdateRepository.existsById(id)) {
@@ -80,4 +82,3 @@ public class WorkoutStatusUpdateServiceImpl implements WorkoutStatusUpdateServic
         return false;
     }
 }
-
