@@ -41,10 +41,6 @@ const HomeSection = () => {
                                 <span className='text-red-500'>{formik.errors.content}</span>
                             )}
                         </div>
-
-                        {/*<div>
-                            <img src="" alt="" />
-                        </div>*/}
                         
                         <div>
 

@@ -5,14 +5,12 @@ import Authentication from './Components/Authentication/Authentication';
 
 function App() {
   return (
-    <div className="">
+    <div>
      
       <Routes>
         <Route path="/*" element={true?<HomePage/>:<Authentication/>}/>
       </Routes>
       
-      
-
     </div>
   );
 }

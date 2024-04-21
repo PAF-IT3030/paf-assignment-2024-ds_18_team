@@ -8,7 +8,7 @@ import Profile from '../Profile/Profile'
 
 const HomePage = () => {
   return (
-    <Grid container xs={12} className='px-5 lg:px-36 justify-betwee'>
+    <Grid container xs={12} className='px-5 lg:px-36 justify-between'>
 
       <Grid item xs={0} lg={2.5} className='hidden lg:block w-full relative'>
         <Navigation />
@@ -18,16 +18,11 @@ const HomePage = () => {
       <Grid item xs={12} lg={6}
         className='px-5 lg:px-9 hidden lg:block w-full relative'>
 
-
         <Routes>
           <Route path="/profile/:id" element={<Profile />} />
-          {/* Other routes */}
         </Routes>
 
         <HomeSection />
-
-
-
 
       </Grid>
 
@@ -35,7 +30,6 @@ const HomePage = () => {
         <RightPart />
 
       </Grid>
-
 
     </Grid>
 

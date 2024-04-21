@@ -143,7 +143,7 @@ export default function MealPlan({ open, handleClose }) {
                     </select>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="routine"><strong>Portion Size:   </strong></label>
+                    <label htmlFor="routine"><strong>Portion Size:</strong></label>
                     <select
                       id="routine"
                       name="routine"
@@ -169,7 +169,6 @@ export default function MealPlan({ open, handleClose }) {
                 >
                   Add Meal Plan
                 </Button>
-
                 <div id="mealplan">
                   {formik.values.mealplans.map((mealplan, index) => (
                     <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
@@ -178,7 +177,6 @@ export default function MealPlan({ open, handleClose }) {
                           <DeleteIcon />
                         </IconButton>
                       </div>
-
 
                       <TextField
                         fullWidth
@@ -190,6 +188,7 @@ export default function MealPlan({ open, handleClose }) {
                         required
                         style={{ marginBottom: '10px' }}
                       />
+
 
                       <div id="mealplan">
                         {formik.values.mealplans.map((mealplan, index) => (
