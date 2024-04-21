@@ -7,6 +7,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
+import UpdateIcon from '@mui/icons-material/Update';
+
 
 const style = {
   position: 'absolute',
@@ -54,6 +56,18 @@ export default function MealPlan({ open, handleClose }) {
     formik.setValues({ ...formik.values, mealplans });
   };
 
+  const updateMealplanField = (index) => {
+    const mealplans = [...formik.values.mealplans];
+    mealplans.splice(index, 1);
+    formik.setValues({ ...formik.values, mealplans });
+  };
+
+  const updateMealplanLabel = (index) => {
+    const mealplans = [...formik.values.mealplans];
+    mealplans.splice(index, 1);
+    formik.setValues({ ...formik.values, mealplans });
+  };
+
   const handleMealplanChange = (index, field, value) => {
     const mealplans = [...formik.values.mealplans];
     mealplans[index][field] = value;
@@ -81,22 +95,30 @@ export default function MealPlan({ open, handleClose }) {
             </div>
             <div className='hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]'>
               <div className='space-y-6 mt-4'>
-                <TextField
-                  fullWidth
-                  id="title"
-                  name="title"
-                  label="Title"
-                  value={formik.values.title}
-                  onChange={formik.handleChange}
-                  required
-                />
+
+                <div className="form-group">
+                  <label htmlFor="routine"><strong>Dietary Preferences :   </strong></label>
+                  <select
+                    id="routine"
+                    name="routine"
+                    value={formik.values.routine}
+                    onChange={formik.handleChange}
+                    required
+                  >
+                    <option value="">Select Type</option>
+                    <option value="option1">Vegetarian</option>
+                    <option value="option2">Vegan</option>
+                    <option value="option3">Keto</option>
+                  </select>
+                </div>
+
                 <TextField
                   fullWidth
                   multiline
                   rows={4}
                   id="description"
                   name="description"
-                  label="Description"
+                  label="Description (Ingredients, Cooking Instructions, etc)"
                   value={formik.values.description}
                   onChange={formik.handleChange}
                   required
@@ -121,7 +143,7 @@ export default function MealPlan({ open, handleClose }) {
                     </select>
                   </div>
                   <div className="form-group">
-                    <label htmlFor="routine"><strong>Routine:   </strong></label>
+                    <label htmlFor="routine"><strong>Portion Size:   </strong></label>
                     <select
                       id="routine"
                       name="routine"
@@ -129,56 +151,16 @@ export default function MealPlan({ open, handleClose }) {
                       onChange={formik.handleChange}
                       required
                     >
-                      <option value="">Select Routine</option>
-                      <option value="option1">Option 1</option>
-                      <option value="option2">Option 2</option>
-                      <option value="option3">Option 3</option>
+                      <option value="">Select Portion Size</option>
+                      <option value="option1">Low</option>
+                      <option value="option2">Medium</option>
+                      <option value="option3">High</option>
                     </select>
                   </div>
                 </div>
 
                 <div style={{ marginBottom: '50px' }}></div>
 
-                <div id="mealplans">
-                  {formik.values.mealplans.map((mealplan, index) => (
-                    <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
-                      <div className="flex items-center justify-between mb-2">
-                        <label htmlFor={`mealplan${index + 1}`}><strong>{`Mealplan ${index + 1}`}</strong></label>
-                        <IconButton onClick={() => removeMealplanField(index)} aria-label="delete mealplan" color="primary">
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-                      <TextField
-                        fullWidth
-                        id={`mealplan${index + 1}`}
-                        name={`mealplan${index}.name`}
-                        value={formik.values.mealplans[index].name}
-                        onChange={(e) => handleMealplanChange(index, 'name', e.target.value)}
-                        label="Mealplans Name"
-                        required
-                        style={{ marginBottom: '10px' }}
-                      />
-                      <div className="flex justify-between">
-                        <TextField
-                          id={`sets${index + 1}`}
-                          name={`mealplan${index}.sets`}
-                          value={formik.values.mealplans[index].sets}
-                          onChange={(e) => handleMealplanChange(index, 'sets', e.target.value)}
-                          label="Sets"
-                          required
-                        />
-                        <TextField
-                          id={`reps${index + 1}`}
-                          name={`mealplan${index}.reps`}
-                          value={formik.values.mealplans[index].reps}
-                          onChange={(e) => handleMealplanChange(index, 'reps', e.target.value)}
-                          label="Repetitions"
-                          required
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
                 <Button
                   type="button"
                   variant="outlined"
@@ -187,6 +169,59 @@ export default function MealPlan({ open, handleClose }) {
                 >
                   Add Meal Plan
                 </Button>
+
+                <div id="mealplan">
+                  {formik.values.mealplans.map((mealplan, index) => (
+                    <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <IconButton onClick={() => removeMealplanField(index)} aria-label="delete mealplan" color="primary">
+                          <DeleteIcon />
+                        </IconButton>
+                      </div>
+
+
+                      <TextField
+                        fullWidth
+                        id={`mealplan${index + 1}`}
+                        name={`mealplan${index}.name`}
+                        value={formik.values.mealplans[index].name}
+                        onChange={(e) => handleMealplanChange(index, 'name', e.target.value)}
+                        label="Mealplan "
+                        required
+                        style={{ marginBottom: '10px' }}
+                      />
+
+                      <div id="mealplan">
+                        {formik.values.mealplans.map((mealplan, index) => (
+                          <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
+                            <div className="flex items-center justify-between mb-2">
+                              <label htmlFor={`mealplan`}>
+                                <strong>{`Mealplan `}</strong>
+                              </label>
+
+
+
+                              <div>
+                                <input
+                                  type="text"
+                                  value={mealplan.label} // Assuming each meal plan object has a 'label' property
+                                  onChange={(e) => updateMealplanLabel(index, e.target.value)} // Call updateMealplanLabel with the new label value
+                                />
+
+
+                                <IconButton onClick={() => updateMealplanField(index)} aria-label="update mealplan" color="primary">
+                                  <UpdateIcon />
+                                </IconButton>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                    </div>
+                  ))}
+                </div>
+
 
                 <div style={{ marginBottom: '30px' }}></div>
 
@@ -217,3 +252,4 @@ export default function MealPlan({ open, handleClose }) {
     </div>
   );
 }
+
