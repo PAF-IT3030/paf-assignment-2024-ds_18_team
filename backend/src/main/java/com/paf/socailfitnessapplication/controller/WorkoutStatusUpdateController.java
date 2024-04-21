@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,6 +23,12 @@ public class WorkoutStatusUpdateController {
     @PostMapping
     public WorkoutStatusUpdateResponseDTO createWorkoutStatusUpdate(@RequestBody WorkoutStatusUpdateDTO workoutStatusUpdateDTO) {
         return modelMapper.map(workoutStatusUpdateService.createWorkoutStatusUpdate(workoutStatusUpdateDTO), WorkoutStatusUpdateResponseDTO.class);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<WorkoutStatusUpdateResponseDTO>> getWorkoutStatusUpdatesForUser(@PathVariable String userId) {
+        List<WorkoutStatusUpdateResponseDTO> workoutStatusUpdates = workoutStatusUpdateService.getWorkoutStatusUpdatesForUser(userId);
+        return ResponseEntity.ok(workoutStatusUpdates);
     }
 
     @GetMapping("/{id}")

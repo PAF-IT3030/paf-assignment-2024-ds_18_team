@@ -11,8 +11,10 @@ import org.modelmapper.ModelMapper;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +48,15 @@ public class WorkoutStatusUpdateServiceImpl implements WorkoutStatusUpdateServic
         Optional<WorkoutStatusUpdate> workoutStatusUpdate = workoutStatusUpdateRepository.findById(id);
         return workoutStatusUpdate.map(statusUpdate -> modelMapper.map(statusUpdate, WorkoutStatusUpdateResponseDTO.class));
     }
+
+    @Override
+    public List<WorkoutStatusUpdateResponseDTO> getWorkoutStatusUpdatesForUser(String userId) {
+        List<WorkoutStatusUpdate> workoutStatusUpdates = workoutStatusUpdateRepository.findByUserId(userId);
+        return workoutStatusUpdates.stream()
+                .map(statusUpdate -> modelMapper.map(statusUpdate, WorkoutStatusUpdateResponseDTO.class))
+                .collect(Collectors.toList());
+    }
+
 
     @Override
     public Optional<WorkoutStatusUpdateResponseDTO> updateWorkoutStatusUpdate(String id, WorkoutStatusUpdateDTO workoutStatusUpdateDTO) {
