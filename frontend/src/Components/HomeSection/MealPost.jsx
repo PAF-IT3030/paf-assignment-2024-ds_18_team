@@ -10,6 +10,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteOutlined from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import ReplyModel from "./ReplyModel";
 
 const MealPost = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const MealPost = () => {
     console.log("liked post");
   };
   return (
-    <div className="">
+    <React.Fragment className="">
       {/*<div className="flex items-center font-semibold text-gray-700 py-2">
             <RepeatIcon/>
             <p >Your Post</p>
@@ -147,7 +148,10 @@ const MealPost = () => {
           </div>
         </div>
       </div>
-    </div>
+      <section>
+        <ReplyModel />
+      </section>
+    </React.Fragment>
   );
 };
 
