@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "@mui/material";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -9,6 +9,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const HomeSection = () => {
+  const [selectImage, setSelectedImage] = useState("");
+  const [uploadingImage, setUploadingImage] = useState(false);
+
   const handleSubmit = (values) => {
     console.log("values ", values);
   };
@@ -21,6 +24,14 @@ const HomeSection = () => {
     onSubmit: handleSubmit,
     validationSchema,
   });
+
+  const handleSelectImage = (event) => {
+    setUploadingImage(true);
+    const imgUrl = event.target.files[0];
+    formik.setFieldValue("image", imgUrl);
+    setSelectedImage(imgUrl);
+    setUploadingImage(false);
+  };
 
   return (
     <div className="space-y-5" style={{ marginTop: "20px" }}>
@@ -52,7 +63,21 @@ const HomeSection = () => {
                             <img src="" alt="" />
                         </div>*/}
 
-              <div></div>
+              <div className="flex justify-between items-center mt-5">
+                <div className="flex space-x-5 items-center">
+                  <label className="flex items-center space-x-2 rounded-md cursor-pointer">
+                    <ImageIcon className="text-blue-500" />
+                    <input
+                      type="file"
+                      name="imageFile"
+                      className="hidden"
+                      onChange={handelSelectImage}
+                    />
+                  </label>
+                  <FmdGoodIcon className="text-blue-500" />
+                  <TagFacesIcon className="text-blue-500" />
+                </div>
+              </div>
             </form>
           </div>
         </div>

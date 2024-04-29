@@ -3,6 +3,12 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Modal } from "@mui/material";
 import Typography from "@mui/material";
+import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import ImageIcon from "@mui/icons-material/Image";
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
+import TagFacesIcon from "@mui/icons-material/TagFaces";
+import { useFormik } from "formik";
 
 const style = {
   position: absolute,
@@ -18,16 +24,40 @@ const style = {
   borderradius: 4,
 };
 
-export default function ReplyModel() {
-  const [open, setOPen] = React.useState(false);
-  const handleOpen = () => setOPen(true);
-  const handleClose = () => setOPen(false);
+export default function ReplyModel(handleClose, open) {
+  const [open, setOpen] = React.useState(false);
+
+  const navigate = useNavigate();
+  const [selectImage, setSelectedImage] = React.useState("");
+  const [uploadingImage, setUploadingImage] = React.useState(false);
+
+  const handleSubmit = (values) => {
+    console.log("handle submit", values);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      content: "",
+      image: "",
+      twitID: "",
+    },
+    onSubmit: handleSubmit,
+  });
+  const handleSelectImage = (event) => {
+    setUploadingImage(true);
+    const imgUrl = event.target.files[0];
+    formik.setFieldValue("image", imgUrl);
+    setSelectedImage(imgUrl);
+    setUploadingImage(false);
+  };
   return (
     <div>
-      <Button onClick={handleOpen} variant="contained" color="primary">
-        Reply
-      </Button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal title"
+        aria-describedby="modal-modal description"
+      >
         <Box sx={style}>
           <div className="flex space-x-5">
             <Avatar
@@ -47,41 +77,62 @@ export default function ReplyModel() {
                     alt="verified"
                   />
                 </div>
-                <div>
-                  <Button
-                    id="basic-button"
-                    aria-controls={open ? "basic-menu" : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? "true" : undefined}
-                    onClick={handleClick}
-                  >
-                    <MoreHorizIcon style={{ color: "#20207D" }} />
-                  </Button>
-                  <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      "aria-labelledby": "basic-button",
-                    }}
-                  >
-                    <MenuItem onClick={handleEditPost}>Edit</MenuItem>
-                    <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
-                  </Menu>
-                </div>
               </div>
               <div className="mt-2">
-                <div className="cursor-pointer">
+                <div
+                  className="cursor-pointer"
+                  onClick={() => navigate(`/twit/${3}`)}
+                >
                   <p className=" mb-2 p-0">Mela Plan Cone</p>
-                  <img
-                    className="w-[28rem] border border-gray-300 p-5 rounded-md"
-                    src=""
-                    alt="meal"
-                  />
                 </div>
               </div>
             </div>
+            <section className={`py-10`}>
+              <div className="flex space-x-5">
+                <Avatar
+                  alt="username"
+                  src="https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg"
+                />
+                <div className="w-full">
+                  <form onSubmit={formik.handleSubmit}>
+                    <div>
+                      <input
+                        type="text"
+                        name="content"
+                        placeholder="What is Happening?"
+                        className={`border-non outline-non text-xl bg-transparent`}
+                        {...formik.getFieldProps("content")}
+                      />
+                      {formik.errors.content && formik.touched.content && (
+                        <span className="text-red-500">
+                          {formik.errors.content}
+                        </span>
+                      )}
+                    </div>
+
+                    {/*<div>
+                            <img src="" alt="" />
+                        </div>*/}
+
+                    <div className="flex justify-between items-center mt-5">
+                      <div className="flex space-x-5 items-center">
+                        <label className="flex items-center space-x-2 rounded-md cursor-pointer">
+                          <ImageIcon className="text-blue-500" />
+                          <input
+                            type="file"
+                            name="imageFile"
+                            className="hidden"
+                            onChange={handelSelectImage}
+                          />
+                        </label>
+                        <FmdGoodIcon className="text-blue-500" />
+                        <TagFacesIcon className="text-blue-500" />
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
           </div>
         </Box>
       </Modal>
