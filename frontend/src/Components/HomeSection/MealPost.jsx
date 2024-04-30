@@ -85,7 +85,7 @@ const MealPost = () => {
             </div>
           </div>
           <div className="mt-2">
-            <div className="cursor-pointer">
+            <div className="cursor-pointer" onClick={()=>navigate(`/twit/${3}`)}>
               <p className=" mb-2 p-0">Mela Plan Cone</p>
               <img
                 className="w-[28rem] border border-gray-300 p-5 rounded-md"

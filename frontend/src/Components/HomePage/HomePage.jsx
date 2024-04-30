@@ -1,36 +1,38 @@
-import React from 'react'
-import { Grid } from '@mui/material'
-import Navigation from '../Navigation/Navigation'
-import HomeSection from '../HomeSection/HomeSection'
-import RightPart from '../RightPart/RightPart'
-import { Route, Routes } from 'react-router-dom';
-import Profile from '../Profile/Profile'
+import React from "react";
+import { Grid } from "@mui/material";
+import Navigation from "../Navigation/Navigation";
+import HomeSection from "../HomeSection/HomeSection";
+import RightPart from "../RightPart/RightPart";
+import { Route, Routes } from "react-router-dom";
+import Profile from "../Profile/Profile";
+import MealDetails from "../MealDetails/MealDetails";
 
 const HomePage = () => {
   return (
-    <Grid container xs={12} className='px-5 lg:px-36 justify-between'>
+    <Grid container xs={12} className="px-5 lg:px-36 justify-between">
+      <Grid item xs={0} lg={2} className="hidden lg:block w-full relative">
+        <Navigation />
+      </Grid>
 
-        <Grid item xs={0} lg={2} className='hidden lg:block w-full relative'>
-          <Navigation/>
+      <Grid
+        item
+        xs={12}
+        lg={6.5}
+        className="px-5 lg:px-9 hidden lg:block w-full relative"
+      >
+        <Routes>
+          <Route path="/" element={<HomeSection />}></Route>
+          <Route path="/home" element={<HomeSection />}></Route>
+          <Route path="/profile/:id" element={<Profile />}></Route>
+          <Route path="/twit/:id" element={<MealDetails />}></Route>
+        </Routes>
+      </Grid>
 
-        </Grid>
-
-        <Grid item xs={12} lg={6.5} className='px-5 lg:px-9 hidden lg:block w-full relative'>
-
-          <Routes>
-            <Route path="/" element={<HomeSection/>}></Route>
-            <Route path="/home" element={<HomeSection/>}></Route>
-            <Route path="/profile/:id" element={<Profile/>}></Route>
-          </Routes>
-
-        </Grid>
-
-        <Grid item xs={0} lg={2.5} className='hidden lg:block w-full relative'>
-          <RightPart/>
-        </Grid>
-        
+      <Grid item xs={0} lg={2.5} className="hidden lg:block w-full relative">
+        <RightPart />
+      </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
