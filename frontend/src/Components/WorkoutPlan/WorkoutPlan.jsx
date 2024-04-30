@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
 
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -22,12 +23,32 @@ const style = {
   borderRadius: 4,
 };
 
-export default function WorkoutPlan({ open, handleClose }) {
+export default function WorkoutPlan({ open, handleClose, onSave }) {
 
-  const handleSubmit = (values) => {
-    console.log("handle submit", values)
-  }
-
+  const handleSubmit = async (values) => {
+    try {
+      const response = await fetch('http://localhost:8081/workoutPlans', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Workout plan created:', data);
+        handleClose(); // Close the modal after successful creation
+        window.location.reload();
+      } else {
+        // Handle the error response
+        console.error('Error creating workout plan:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error creating workout plan:', error);
+      // Handle the error (e.g., display an error message to the user)
+    }
+  };
+  
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -84,9 +105,9 @@ export default function WorkoutPlan({ open, handleClose }) {
                 <TextField
                   fullWidth
                   id="title"
-                  name="title"
+                  name="workoutPlanName"
                   label="Title"
-                  value={formik.values.title}
+                  value={formik.values.workoutPlanName}
                   onChange={formik.handleChange}
                   required
                 />
