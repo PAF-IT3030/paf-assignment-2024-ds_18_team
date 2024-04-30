@@ -12,6 +12,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import WorkoutPlanPage from "../WorkoutPlan/WorkoutPlanPage";
 import MealPost from "../HomeSection/MealPost";
+import ProfileModal from "./ProfileModal";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -164,6 +165,10 @@ const Profile = () => {
             <TabPanel value="3">Users Meal plans</TabPanel>
           </TabContext>
         </Box>
+      </section>
+
+      <section>
+        <ProfileModal />
       </section>
     </div>
   );
