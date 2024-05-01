@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Avatar } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import MealPost from "./MealPost";
+import ImageIcon from "@mui/icons-material/Image";
+import FmdGoodIcon from "@mui/icons-material/FmdGood";
+import TagFacesIcon from "@mui/icons-material/TagFaces";
 
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Text is required"),
@@ -45,7 +48,7 @@ const HomeSection = () => {
             src="https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg"
           />
           <div className="w-full">
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div>
                 <input
                   type="text"
@@ -59,10 +62,6 @@ const HomeSection = () => {
                 )}
               </div>
 
-              {/*<div>
-                            <img src="" alt="" />
-                        </div>*/}
-
               <div className="flex justify-between items-center mt-5">
                 <div className="flex space-x-5 items-center">
                   <label className="flex items-center space-x-2 rounded-md cursor-pointer">
@@ -71,11 +70,26 @@ const HomeSection = () => {
                       type="file"
                       name="imageFile"
                       className="hidden"
-                      onChange={handelSelectImage}
+                      onChange={handleSelectImage}
                     />
                   </label>
                   <FmdGoodIcon className="text-blue-500" />
                   <TagFacesIcon className="text-blue-500" />
+                </div>
+                <div>
+                  <Button
+                    sx={{
+                      width: "100%",
+                      borderRadius: "29px",
+                      paddingY: "15px",
+                      paddingX: "8spx",
+                      bgcolor: "#1e88e5",
+                    }}
+                    variant="contained"
+                    type="submit"
+                  >
+                    Post
+                  </Button>
                 </div>
               </div>
             </form>
@@ -84,7 +98,7 @@ const HomeSection = () => {
       </section>
       <section>
         {[1, 1, 1, 1, 1].map((item) => (
-          <MealPost />
+          <MealPost key={item} />
         ))}
       </section>
     </div>

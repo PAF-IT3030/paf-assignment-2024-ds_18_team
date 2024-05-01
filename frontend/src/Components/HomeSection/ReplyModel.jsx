@@ -2,7 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { Modal } from "@mui/material";
-import Typography from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ImageIcon from "@mui/icons-material/Image";
@@ -11,7 +11,7 @@ import TagFacesIcon from "@mui/icons-material/TagFaces";
 import { useFormik } from "formik";
 
 const style = {
-  position: absolute,
+  position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -24,9 +24,7 @@ const style = {
   borderRadius: 4,
 };
 
-export default function ReplyModel(handleClose, open) {
-  const [open, setOpen] = React.useState(false);
-
+export default function ReplyModel({ handleClose, open }) {
   const navigate = useNavigate();
   const [selectImage, setSelectedImage] = React.useState("");
   const [uploadingImage, setUploadingImage] = React.useState(false);
@@ -43,6 +41,7 @@ export default function ReplyModel(handleClose, open) {
     },
     onSubmit: handleSubmit,
   });
+
   const handleSelectImage = (event) => {
     setUploadingImage(true);
     const imgUrl = event.target.files[0];
@@ -50,6 +49,7 @@ export default function ReplyModel(handleClose, open) {
     setSelectedImage(imgUrl);
     setUploadingImage(false);
   };
+
   return (
     <div>
       <Modal
@@ -122,7 +122,7 @@ export default function ReplyModel(handleClose, open) {
                             type="file"
                             name="imageFile"
                             className="hidden"
-                            onChange={handelSelectImage}
+                            onChange={handleSelectImage}
                           />
                         </label>
                         <FmdGoodIcon className="text-blue-500" />

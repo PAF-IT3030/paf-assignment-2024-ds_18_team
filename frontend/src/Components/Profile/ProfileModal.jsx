@@ -1,13 +1,9 @@
-import * as React from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { useFormik } from "formik";
-import {
-  Avatar,
-  IconButton,
-  bottomNavigationActionClasses,
-} from "@mui/material";
+import { Avatar, IconButton, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import "./ProfileModal.css";
 
@@ -25,8 +21,7 @@ const style = {
   borderRadius: "4",
 };
 
-export default function ProfileModal({ open, handleOpen, handleClose}) {
-  //const [open, setOpen] = React.useState(false);
+export default function ProfileModal({ open, handleOpen, handleClose }) {
   const [uploading, setUploading] = React.useState(false);
 
   const handleSubmit = (values) => {
@@ -44,6 +39,7 @@ export default function ProfileModal({ open, handleOpen, handleClose}) {
     },
     onSubmit: handleSubmit,
   });
+
   const handleImageChange = (event) => {
     setUploading(true);
     const name = event.target;
@@ -54,7 +50,6 @@ export default function ProfileModal({ open, handleOpen, handleClose}) {
 
   return (
     <div>
-      
       <Modal
         open={open}
         onClose={handleClose}
@@ -84,7 +79,7 @@ export default function ProfileModal({ open, handleOpen, handleClose}) {
                     />
                     <input
                       type="file"
-                      classname="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                      className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
                       onChange={handleImageChange}
                       name="backgroundImage"
                     />
@@ -164,7 +159,7 @@ export default function ProfileModal({ open, handleOpen, handleClose}) {
                   <p className="text-lg">Birth Date. Edit</p>
                   <p className="text-2xl">October 29 1995</p>
                 </div>
-                <p className=" py-3 text-lg">Profile Picture</p>
+                <p className="py-3 text-lg">Profile Picture</p>
               </div>
             </div>
           </form>

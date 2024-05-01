@@ -4,12 +4,9 @@ import { Avatar, Button, Menu, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FileUploadIcon from "@mui/icons-material/FileUpload";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteOutlined from "@mui/icons-material/FavoriteOutlined";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import ReplyModel from "./ReplyModel";
 import { useState } from "react";
 
@@ -38,12 +35,13 @@ const MealPost = () => {
   const handleLikedPost = () => {
     console.log("liked post");
   };
+
+  const handleOpenReplyModel = () => {
+    setOpenReplyModel(true);
+  };
+
   return (
-    <React.Fragment className="">
-      {/*<div className="flex items-center font-semibold text-gray-700 py-2">
-            <RepeatIcon/>
-            <p >Your Post</p>
-        </div>*/}
+    <React.Fragment>
       <div className="flex space-x-5">
         <Avatar
           onClick={() => navigate(`/profile/${6}`)}
