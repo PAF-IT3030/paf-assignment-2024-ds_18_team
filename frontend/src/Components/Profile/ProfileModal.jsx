@@ -21,7 +21,7 @@ const style = {
   borderRadius: "4",
 };
 
-export default function ProfileModal({ open, handleOpen, handleClose }) {
+export default function ProfileModal({ open, handleClose }) {
   const [uploading, setUploading] = React.useState(false);
 
   const handleSubmit = (values) => {
@@ -70,6 +70,7 @@ export default function ProfileModal({ open, handleOpen, handleClose }) {
             </div>
             <div className="hideScrollBar overflow -y-scroll overflow-x-hidden h-[80vh]">
               <React.Fragment>
+                {/* Background Image */}
                 <div className="w-full">
                   <div className="relative">
                     <img
@@ -85,6 +86,7 @@ export default function ProfileModal({ open, handleOpen, handleClose }) {
                     />
                   </div>
                 </div>
+                {/* Profile Image */}
                 <div className="w-full transform -translate -y-20 ml-4 h-[6rem]">
                   <div className="relative">
                     <Avatar
@@ -96,7 +98,6 @@ export default function ProfileModal({ open, handleOpen, handleClose }) {
                       src="https://pixabay.com/photos/pug-dog-sunglasses-pink-glasses-8632718/"
                       className="w-24 h-24"
                     />
-
                     <input
                       type="file"
                       name="image"
@@ -106,6 +107,7 @@ export default function ProfileModal({ open, handleOpen, handleClose }) {
                   </div>
                 </div>
               </React.Fragment>
+              {/* Profile Information */}
               <div className="space-y-3">
                 <TextField
                   fullWidth
