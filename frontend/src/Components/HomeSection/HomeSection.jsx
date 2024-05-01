@@ -9,6 +9,7 @@ import TagFacesIcon from "@mui/icons-material/TagFaces";
 
 const validationSchema = Yup.object().shape({
   content: Yup.string().required("Text is required"),
+  image: Yup.mixed().required("Image is required"),
 });
 
 const HomeSection = () => {
@@ -17,6 +18,7 @@ const HomeSection = () => {
 
   const handleSubmit = (values) => {
     console.log("values ", values);
+    // Logic to handle form submission (e.g., API call)
   };
 
   const formik = useFormik({
@@ -87,8 +89,9 @@ const HomeSection = () => {
                     }}
                     variant="contained"
                     type="submit"
+                    disabled={uploadingImage || !formik.isValid}
                   >
-                    Post
+                    {uploadingImage ? "Uploading..." : "Post"}
                   </Button>
                 </div>
               </div>

@@ -21,7 +21,7 @@ const style = {
   borderRadius: "4",
 };
 
-export default function ProfileModal({ open, handleOpen, handleClose }) {
+export default function ProfileModal({ open, handleClose }) {
   const [uploading, setUploading] = React.useState(false);
 
   const handleSubmit = (values) => {
@@ -68,7 +68,7 @@ export default function ProfileModal({ open, handleOpen, handleClose }) {
 
               <Button type="submit">Save</Button>
             </div>
-            <div className="hideScrollBar overflow -y-scroll overflow-x-hidden h-[80vh]">
+            <div className="hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]">
               <React.Fragment>
                 <div className="w-full">
                   <div className="relative">
