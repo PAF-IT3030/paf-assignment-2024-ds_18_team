@@ -21,7 +21,7 @@ const style = {
   boxShadow: 24,
   p: 4,
   outline: "none",
-  borderradius: 4,
+  borderRadius: 4,
 };
 
 export default function ReplyModel(handleClose, open) {

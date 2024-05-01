@@ -19,15 +19,14 @@ const Profile = () => {
 
   const handleBack = () => navigate(-1);
 
-  const handleOpenProfileModel = () => {
-    console.log("Open profile model");
-  };
+  const [tabValue, setTabValue] = useState("1");
+  const [openProfileModel, setOpenProfileModel] = useState(false);
+  const handleOpenProfileModel = () => setOpenProfileModel(true);
+  const handleClose = () => setOpenProfileModel(false);
 
   const handleFollowUser = () => {
     console.log("Follow user");
   };
-
-  const [tabValue, setTabValue] = useState("1");
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -168,7 +167,7 @@ const Profile = () => {
       </section>
 
       <section>
-        <ProfileModal />
+        <ProfileModal handleClose={handleClose} open={openProfileModel} />
       </section>
     </div>
   );

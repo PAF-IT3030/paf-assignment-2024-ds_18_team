@@ -11,11 +11,15 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteOutlined from "@mui/icons-material/FavoriteOutlined";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import ReplyModel from "./ReplyModel";
+import { useState } from "react";
 
 const MealPost = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const [openReplyModel, setOpenReplyModel] = useState(false);
+  const handleOpenProfileModel = () => setOpenReplyModel(true);
+  const handleCloseReplyModal = () => setOpenReplyModel(false);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -27,9 +31,7 @@ const MealPost = () => {
     handleClose();
   };
   const handleEditPost = () => {};
-  const handleOpenReplyModel = () => {
-    console.log("open reply model");
-  };
+
   const handleCreateRepost = () => {
     console.log("create repost");
   };
@@ -85,7 +87,10 @@ const MealPost = () => {
             </div>
           </div>
           <div className="mt-2">
-            <div className="cursor-pointer" onClick={()=>navigate(`/twit/${3}`)}>
+            <div
+              className="cursor-pointer"
+              onClick={() => navigate(`/twit/${3}`)}
+            >
               <p className=" mb-2 p-0">Mela Plan Cone</p>
               <img
                 className="w-[28rem] border border-gray-300 p-5 rounded-md"
@@ -149,7 +154,7 @@ const MealPost = () => {
         </div>
       </div>
       <section>
-        <ReplyModel />
+        <ReplyModel open={openReplyModel} handleClose={handleCloseReplyModal} />
       </section>
     </React.Fragment>
   );

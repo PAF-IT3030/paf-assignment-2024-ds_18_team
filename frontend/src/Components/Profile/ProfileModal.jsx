@@ -3,8 +3,13 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { useFormik } from "formik";
-import { IconButton, bottomNavigationActionClasses } from "@mui/material";
+import {
+  Avatar,
+  IconButton,
+  bottomNavigationActionClasses,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import "./ProfileModal.css";
 
 const style = {
   position: "absolute",
@@ -20,14 +25,12 @@ const style = {
   borderRadius: "4",
 };
 
-export default function ProfileModal() {
-  const [open, setOpen] = React.useState(false);
+export default function ProfileModal({ open, handleOpen, handleClose}) {
+  //const [open, setOpen] = React.useState(false);
   const [uploading, setUploading] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
-  const handleSubmit = () => {
-    console.log("submit");
+  const handleSubmit = (values) => {
+    console.log("handle submit", values);
   };
 
   const formik = useFormik({
@@ -51,9 +54,9 @@ export default function ProfileModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      
       <Modal
-        open={true}
+        open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -70,8 +73,8 @@ export default function ProfileModal() {
 
               <Button type="submit">Save</Button>
             </div>
-            <div className="overflow -y-scroll overflow-x-hidden h-[80vh]">
-              <div>
+            <div className="hideScrollBar overflow -y-scroll overflow-x-hidden h-[80vh]">
+              <React.Fragment>
                 <div className="w-full">
                   <div className="relative">
                     <img
@@ -87,7 +90,27 @@ export default function ProfileModal() {
                     />
                   </div>
                 </div>
-              </div>
+                <div className="w-full transform -translate -y-20 ml-4 h-[6rem]">
+                  <div className="relative">
+                    <Avatar
+                      sx={{
+                        width: "10rem",
+                        height: "10px",
+                        border: "4px solid white",
+                      }}
+                      src="https://pixabay.com/photos/pug-dog-sunglasses-pink-glasses-8632718/"
+                      className="w-24 h-24"
+                    />
+
+                    <input
+                      type="file"
+                      name="image"
+                      className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                      onChange={handleImageChange}
+                    />
+                  </div>
+                </div>
+              </React.Fragment>
               <div className="space-y-3">
                 <TextField
                   fullWidth
