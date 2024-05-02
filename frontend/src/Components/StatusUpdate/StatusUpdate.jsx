@@ -28,7 +28,7 @@ export default function StatusUpdate({ open, handleClose }) {
     try {
       // Send POST request to backend API
       const response = await axios.post('http://localhost:8080/workout-status-updates', {
-        userId: '12324', // Set the user ID here (e.g., from authentication)
+        userId: '67473', // Set the user ID here (e.g., from authentication)
         description: values.description,
         metrics: {
           distance: values.metrics.distance,
