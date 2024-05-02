@@ -31,9 +31,9 @@ const Profile = () => {
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
 
-    if (newValue === 3) {
+    if (newValue === "3") {
       console.log("meal plan");
-    } else if (newValue === 1) {
+    } else if (newValue === "1") {
       console.log("posts");
     }
   };
@@ -47,7 +47,6 @@ const Profile = () => {
           className="cursor-pointer"
           onClick={handleBack}
         />
-
         <h1 className="py-5 text-xl font-bold opacity-90 ml-5">Raam Kapoor</h1>
       </section>
 
@@ -68,23 +67,13 @@ const Profile = () => {
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
           />
 
-          {true ? (
-            <Button
-              onClick={handleOpenProfileModel}
-              variant="contained"
-              sx={{ borderRadius: "20px", bgcolor: "#20207D" }}
-            >
-              Edit Profile
-            </Button>
-          ) : (
-            <Button
-              onClick={handleFollowUser}
-              variant="contained"
-              sx={{ borderRadius: "20px", bgcolor: "#20207D" }}
-            >
-              {true ? "Follow" : "Unfollow"}
-            </Button>
-          )}
+          <Button
+            onClick={handleOpenProfileModel}
+            variant="contained"
+            sx={{ borderRadius: "20px", bgcolor: "#20207D" }}
+          >
+            Edit Profile
+          </Button>
         </div>
 
         <div>
@@ -154,8 +143,8 @@ const Profile = () => {
               </TabList>
             </Box>
             <TabPanel value="1">
-              {[1, 1, 1, 1].map((item) => (
-                <MealPost />
+              {[1, 1, 1, 1].map((item, index) => (
+                <MealPost key={index} />
               ))}
             </TabPanel>
             <TabPanel value="2">

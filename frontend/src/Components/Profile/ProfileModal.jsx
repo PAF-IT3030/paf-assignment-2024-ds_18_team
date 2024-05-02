@@ -18,10 +18,10 @@ const style = {
   boxShadow: 24,
   p: 4,
   outline: "none",
-  borderRadius: "4",
+  borderRadius: "4px",
 };
 
-export default function ProfileModal({ open, handleClose }) {
+const ProfileModal = ({ open, handleClose }) => {
   const [uploading, setUploading] = React.useState(false);
 
   const handleSubmit = (values) => {
@@ -167,4 +167,6 @@ export default function ProfileModal({ open, handleClose }) {
       </Modal>
     </div>
   );
-}
+};
+
+export default ProfileModal;
