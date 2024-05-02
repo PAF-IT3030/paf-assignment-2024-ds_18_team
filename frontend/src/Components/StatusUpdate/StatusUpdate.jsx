@@ -29,12 +29,40 @@ export default function StatusUpdate({ open, handleClose }) {
 
   const formik = useFormik({
     initialValues: {
-      status: "",
-      location: "",
-      mood: "",
+      description: "",
+      metrics: {
+        distance: "",
+        sets: "",
+        time: ""
+      },
     },
-    onSubmit: handleSubmit
+    onSubmit: handleSubmit,
+    validate: (values) => {
+      const errors = {};
+      // Validate metrics
+      if (values.metrics.distance < 0) {
+        errors.metrics = { ...errors.metrics, distance: 'Distance cannot be negative' };
+      }
+      if (values.metrics.sets < 0) {
+        errors.metrics = { ...errors.metrics, sets: 'Sets cannot be negative' };
+      }
+      if (values.metrics.time < 0) {
+        errors.metrics = { ...errors.metrics, time: 'Time cannot be negative' };
+      }
+      return errors;
+    }
   });
+
+  const handleMetricChange = (event, metricName) => {
+    const { value } = event.target;
+    formik.setValues((prevValues) => ({
+      ...prevValues,
+      metrics: {
+        ...prevValues.metrics,
+        [metricName]: Math.max(0, parseFloat(value)) // Ensure non-negative value
+      }
+    }));
+  };
 
   return (
     <div>
@@ -61,31 +89,29 @@ export default function StatusUpdate({ open, handleClose }) {
                   fullWidth
                   multiline
                   rows={4}
-                  id="status"
-                  name="status"
-                  label="Status"
-                  value={formik.values.status}
+                  id="description"
+                  name="description"
+                  label="Description"
+                  value={formik.values.description}
                   onChange={formik.handleChange}
                   required
                 />
-                <TextField
-                  fullWidth
-                  id="location"
-                  name="location"
-                  label="Location"
-                  value={formik.values.location}
-                  onChange={formik.handleChange}
-                  required
-                />
-                <TextField
-                  fullWidth
-                  id="mood"
-                  name="mood"
-                  label="Mood"
-                  value={formik.values.mood}
-                  onChange={formik.handleChange}
-                  required
-                />
+                {/* Dynamically render metric fields */}
+                {Object.keys(formik.values.metrics).map((metricName) => (
+                  <TextField
+                    key={metricName}
+                    fullWidth
+                    id={metricName}
+                    name={`metrics.${metricName}`}
+                    label={metricName === 'distance' ? 'Distance (km)' : metricName}
+                    value={formik.values.metrics[metricName]}
+                    onChange={(event) => handleMetricChange(event, metricName)}
+                    required
+                    type="number" // Assuming metrics are numeric
+                    error={formik.touched.metrics && formik.errors.metrics && formik.errors.metrics[metricName]}
+                    helperText={formik.touched.metrics && formik.errors.metrics && formik.errors.metrics[metricName]}
+                  />
+                ))}
               </div>
             </div>
           </form>
