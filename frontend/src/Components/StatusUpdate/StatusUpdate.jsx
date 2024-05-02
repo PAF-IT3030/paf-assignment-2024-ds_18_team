@@ -6,6 +6,7 @@ import { useFormik } from 'formik';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import { TextField } from '@mui/material';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -23,9 +24,24 @@ const style = {
 
 export default function StatusUpdate({ open, handleClose }) {
 
-  const handleSubmit = (values) => {
-    console.log("handle submit", values)
-  }
+  const handleSubmit = async (values) => {
+    try {
+      // Send POST request to backend API
+      const response = await axios.post('http://localhost:8080/workout-status-updates', {
+        userId: '12324', // Set the user ID here (e.g., from authentication)
+        description: values.description,
+        metrics: {
+          distance: values.metrics.distance,
+          sets: values.metrics.sets,
+          time: values.metrics.time
+        }
+      });
+      console.log('Workout status update created:', response.data);
+      handleClose(); // Close the modal after successful submission
+    } catch (error) {
+      console.error('Error creating workout status update:', error);
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
