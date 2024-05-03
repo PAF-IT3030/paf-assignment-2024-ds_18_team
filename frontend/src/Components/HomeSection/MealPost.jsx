@@ -47,7 +47,7 @@ const MealPost = () => {
           onClick={() => navigate(`/profile/${6}`)}
           className="cursor-pointer"
           alt="username"
-          src="https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg"
+          src="https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=600"
         />
         <div className="w-full">
           <div className="flex justify-between items-center">
