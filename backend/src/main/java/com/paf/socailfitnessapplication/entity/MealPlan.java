@@ -1,5 +1,10 @@
 package com.paf.socailfitnessapplication.entity;
 
+
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -16,13 +21,14 @@ public class MealPlan {
     @Id
     private String mealPlanId;
     private String userId;
-    private String dietaryPreference;
+    private String username;
     private String description;
-    private String intensityLevel;
-    private String mealplan;
     private String duration;
+    private String intensity;
+    private String meal;
     private String notes;
-
-    
+    private String portionSize;
+    private String routine;
+    private Date dateTime;
 
 }
