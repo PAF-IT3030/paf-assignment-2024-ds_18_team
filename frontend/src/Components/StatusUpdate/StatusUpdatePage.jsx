@@ -3,6 +3,7 @@ import { Button, Typography, IconButton, Card, CardContent, CardActions } from '
 import StatusUpdate from '../StatusUpdate/StatusUpdate';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
+import './StatusUpdate.css'; // Import the CSS file
 
 const StatusUpdatePage = () => {
     const [openStatusUpdate, setOpenStatusUpdate] = useState(false);
