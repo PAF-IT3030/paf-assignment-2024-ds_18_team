@@ -3,6 +3,7 @@ package com.paf.socailfitnessapplication.controller;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paf.socailfitnessapplication.entity.MealPlan;
 import com.paf.socailfitnessapplication.service.MealPlanService;
-
-
 
 @RestController
 @RequestMapping("/mealPlans")
@@ -39,13 +38,13 @@ public class MealPlanController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<MealPlan> createMealPlan(@RequestBody MealPlan mealPlan) {
         MealPlan savedMealPlan = mealPlanService.createMealPlan(mealPlan);
         return new ResponseEntity<>(savedMealPlan, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{mealPlanId}")
+    @PutMapping("/update/{mealPlanId}")
     public ResponseEntity<MealPlan> updateMealPlan(@PathVariable String mealPlanId, @RequestBody MealPlan mealplan) {
         MealPlan updatedMealPlan = mealPlanService.updatMealPlan(mealPlanId, mealplan);
         if (updatedMealPlan != null) {
