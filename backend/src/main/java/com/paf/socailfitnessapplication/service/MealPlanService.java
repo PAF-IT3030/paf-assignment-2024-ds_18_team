@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import com.paf.socailfitnessapplication.entity.MealPlan;
 
-
-
 public interface MealPlanService {
     List<MealPlan> getAllMealPlans();
 
