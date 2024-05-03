@@ -119,7 +119,7 @@ export default function StatusUpdate({ open, handleClose }) {
                     fullWidth
                     id={metricName}
                     name={`metrics.${metricName}`}
-                    label={metricName === 'distance' ? 'Distance (km)' : metricName}
+                    label={metricName === 'distance' ? 'Distance (km)' : metricName === 'time' ? 'Time (mins)' : metricName}
                     value={formik.values.metrics[metricName]}
                     onChange={(event) => handleMetricChange(event, metricName)}
                     required

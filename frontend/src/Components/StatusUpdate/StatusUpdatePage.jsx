@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, IconButton, Card, CardContent, CardActions } from '@mui/material';
 import StatusUpdate from '../StatusUpdate/StatusUpdate';
 import axios from 'axios';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const StatusUpdatePage = () => {
     const [openStatusUpdate, setOpenStatusUpdate] = useState(false);
@@ -36,33 +37,39 @@ const StatusUpdatePage = () => {
     };
 
     return (
-        <div>
-            <section>
-                <div className='flex justify-end items-start mt-5 h-[5rem]'>
-                    <section>
-                        <StatusUpdate handleClose={handleClose} open={openStatusUpdate} />
-                    </section>
+        <div className="status-update-page">
+            <div className="status-update-header">
+                <Typography variant="h4" gutterBottom>Workout Status Updates</Typography>
+                <div style={{ marginLeft: 'auto' }}>
                     <Button
                         onClick={handleOpenStatusUpdate}
                         variant='contained'
-                        sx={{ borderRadius: "20px", bgcolor: '#20207D', ml: 'auto' }}>
+                        sx={{ borderRadius: "20px", bgcolor: '#20207D', color: '#fff', marginRight: '16px' }}>
                         Add Status Update
                     </Button>
                 </div>
-            </section>
-            <section className="status-update-list">
-                <Typography variant="h5" gutterBottom>Status Updates</Typography>
-                {statusUpdates.map((update) => (
-                    <div key={update.id} className="status-update">
-                        <Typography variant="body1" gutterBottom>Description: {update.description}</Typography>
-                        <Typography variant="body1" gutterBottom>Distance: {update.metrics.distance}</Typography>
-                        <Typography variant="body1" gutterBottom>Sets: {update.metrics.sets}</Typography>
-                        <Typography variant="body1" gutterBottom>Time: {update.metrics.time}</Typography>
-                        <Typography variant="body1" gutterBottom>Timestamp: {update.timestamp}</Typography>
-                        <Button onClick={() => handleDeleteStatusUpdate(update.id)} variant="outlined" color="error">Delete</Button>
+            </div>
+            <div className="status-update-list" style={{ marginTop: '16px' }}>
+                {statusUpdates.map((update, index) => (
+                    <div key={update.id} style={{ marginBottom: index < statusUpdates.length - 1 ? '16px' : 0 }}>
+                        <Card className="status-update-card" elevation={4}>
+                            <CardContent sx={{ padding: '16px' }}>
+                                <Typography variant="h6" gutterBottom>{update.description}</Typography>
+                                <Typography variant="body1" gutterBottom><strong>Distance:</strong> {update.metrics.distance}</Typography>
+                                <Typography variant="body1" gutterBottom><strong>Sets:</strong> {update.metrics.sets}</Typography>
+                                <Typography variant="body1" gutterBottom><strong>Time:</strong> {update.metrics.time}</Typography>
+                                <Typography variant="body2" gutterBottom><strong>Timestamp:</strong> {new Date(update.timestamp).toLocaleString()}</Typography>
+                            </CardContent>
+                            <CardActions sx={{ padding: '8px' }}>
+                                <IconButton onClick={() => handleDeleteStatusUpdate(update.id)} color="error">
+                                    <DeleteIcon />
+                                </IconButton>
+                            </CardActions>
+                        </Card>
                     </div>
                 ))}
-            </section>
+            </div>
+            <StatusUpdate handleClose={handleClose} open={openStatusUpdate} />
         </div>
     );
 };
