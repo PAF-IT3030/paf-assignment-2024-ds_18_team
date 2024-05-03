@@ -1,77 +1,65 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import { useFormik } from 'formik';
-import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton } from '@mui/material';
-import { TextField } from '@mui/material';
-import UpdateIcon from '@mui/icons-material/Update';
-
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import CloseIcon from "@mui/icons-material/Close";
+import { useForm } from "react-hook-form";
+import { IconButton } from "@mui/material";
+import { TextField } from "@mui/material";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 600,
-  bgcolor: 'background.paper',
-  border: 'none',
+  bgcolor: "background.paper",
+  border: "none",
   boxShadow: 24,
   p: 4,
   outline: "none",
   borderRadius: 4,
 };
 
+const schema = yup.object().shape({
+  routine: yup.string().required("Routine is required"),
+  description: yup.string().required("Description is required"),
+  intensity: yup.string().required("Intensity is required"),
+  portionSize: yup.string().required("Portion Size is required"),
+  meal: yup.string().required("Meal is required"),
+  duration: yup.string().required("Duration is required"),
+  notes: yup.string().required("Notes is required"),
+});
+
 export default function MealPlan({ open, handleClose }) {
-
-  const handleSubmit = (values) => {
-    console.log("handle submit", values)
-  }
-
-  const formik = useFormik({
-    initialValues: {
-      title: "",
-      description: "",
-      intensity: "",
-      routine: "",
-      mealplans: [{ name: "", sets: "", reps: "" }], // Initialize mealplans array with an empty object
-      duration: "",
-      notes: ""
-    },
-    onSubmit: handleSubmit
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const addMealplanField = () => {
-    formik.setValues(prevState => ({
-      ...prevState,
-      mealplans: [...prevState.mealplans, { name: "", sets: "", reps: "" }]
-    }));
-  };
+  const onSubmit = async (data) => {
+    const postData = {
+      ...data,
+      userId: "1234", //change your userId
+      username: "Isuru", //change your username
+    };
+    console.log(postData);
 
-  const removeMealplanField = (index) => {
-    const mealplans = [...formik.values.mealplans];
-    mealplans.splice(index, 1);
-    formik.setValues({ ...formik.values, mealplans });
-  };
-
-  const updateMealplanField = (index) => {
-    const mealplans = [...formik.values.mealplans];
-    mealplans.splice(index, 1);
-    formik.setValues({ ...formik.values, mealplans });
-  };
-
-  const updateMealplanLabel = (index) => {
-    const mealplans = [...formik.values.mealplans];
-    mealplans.splice(index, 1);
-    formik.setValues({ ...formik.values, mealplans });
-  };
-
-  const handleMealplanChange = (index, field, value) => {
-    const mealplans = [...formik.values.mealplans];
-    mealplans[index][field] = value;
-    formik.setValues({ ...formik.values, mealplans });
+    try {
+      await axios.post("http://localhost:8080/mealPlans/add", postData);
+       window.location.href = "/home";
+      handleClose();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -83,165 +71,120 @@ export default function MealPlan({ open, handleClose }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form onSubmit={formik.handleSubmit}>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center space-x-3'>
-                <IconButton onClick={handleClose} aria-label='delete'>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <IconButton onClick={handleClose} aria-label="delete">
                   <CloseIcon />
                 </IconButton>
-                <p className=''>Add Meal Plan</p>
+                <p className="">Add Meal Plan</p>
               </div>
-              <Button type='submit'>Save</Button>
+              <Button type="submit">Save</Button>
             </div>
-            <div className='hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]'>
-              <div className='space-y-6 mt-4'>
-
+            <div className="hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]">
+              <div className="space-y-6 mt-4">
                 <div className="form-group">
-                  <label htmlFor="routine"><strong>Dietary Preferences :   </strong></label>
-                  <select
-                    id="routine"
-                    name="routine"
-                    value={formik.values.routine}
-                    onChange={formik.handleChange}
-                    required
-                  >
+                  <label htmlFor="routine">
+                    <strong>Dietary Preferences : </strong>
+                  </label>
+                  <select {...register("routine")} id="routine" name="routine">
                     <option value="">Select Type</option>
-                    <option value="option1">Vegetarian</option>
-                    <option value="option2">Vegan</option>
-                    <option value="option3">Keto</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Vegan">Vegan</option>
+                    <option value="Keto">Keto</option>
                   </select>
+                  {errors.routine && (
+                    <p className="text-red-500">{errors.routine.message}</p>
+                  )}
                 </div>
 
                 <TextField
+                  {...register("description")}
+                  error={errors.description}
+                  helperText={errors.description && errors.description.message}
                   fullWidth
                   multiline
                   rows={4}
                   id="description"
                   name="description"
                   label="Description (Ingredients, Cooking Instructions, etc)"
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                  required
                 />
 
-                <div style={{ marginBottom: '60px' }}></div>
+                <div style={{ marginBottom: "60px" }}></div>
 
                 <div className="flex space-x-4">
-                  <div className="form-group" style={{ marginRight: '80px' }}>
-                    <label htmlFor="intensity"><strong>Intensity Level:   </strong></label>
+                  <div className="form-group" style={{ marginRight: "80px" }}>
+                    <label htmlFor="intensity">
+                      <strong>Intensity Level: </strong>
+                    </label>
                     <select
                       id="intensity"
                       name="intensity"
-                      value={formik.values.intensity}
-                      onChange={formik.handleChange}
-                      required
+                      {...register("intensity")}
                     >
                       <option value="">Select Intensity</option>
                       <option value="beginner">Beginner</option>
                       <option value="intermediate">Intermediate</option>
                       <option value="advanced">Advanced</option>
                     </select>
+                    {errors.intensity && (
+                      <p className="text-red-500">{errors.intensity.message}</p>
+                    )}
                   </div>
                   <div className="form-group">
-                    <label htmlFor="routine"><strong>Portion Size:</strong></label>
+                    <label htmlFor="routine">
+                      <strong>Portion Size:</strong>
+                    </label>
                     <select
+                      {...register("portionSize")}
                       id="routine"
-                      name="routine"
-                      value={formik.values.routine}
-                      onChange={formik.handleChange}
-                      required
+                      name="portionSize"
                     >
                       <option value="">Select Portion Size</option>
-                      <option value="option1">Low</option>
-                      <option value="option2">Medium</option>
-                      <option value="option3">High</option>
+                      <option value="Low">Low</option>
+                      <option value="Medium">Medium</option>
+                      <option value="High">High</option>
                     </select>
+                    {errors.portionSize && (
+                      <p className="text-red-500">
+                        {errors.portionSize.message}
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                <div style={{ marginBottom: '50px' }}></div>
-
-                <Button
-                  type="button"
-                  variant="outlined"
-                  color="primary"
-                  onClick={addMealplanField}
-                >
-                  Add Meal Plan
-                </Button>
-                <div id="mealplan">
-                  {formik.values.mealplans.map((mealplan, index) => (
-                    <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
-                      <div className="flex items-center justify-between mb-2">
-                        <IconButton onClick={() => removeMealplanField(index)} aria-label="delete mealplan" color="primary">
-                          <DeleteIcon />
-                        </IconButton>
-                      </div>
-
-                      <TextField
-                        fullWidth
-                        id={`mealplan${index + 1}`}
-                        name={`mealplan${index}.name`}
-                        value={formik.values.mealplans[index].name}
-                        onChange={(e) => handleMealplanChange(index, 'name', e.target.value)}
-                        label="Mealplan "
-                        required
-                        style={{ marginBottom: '10px' }}
-                      />
-
-
-                      <div id="mealplan">
-                        {formik.values.mealplans.map((mealplan, index) => (
-                          <div key={index} className="form-group" style={{ marginBottom: '30px' }}>
-                            <div className="flex items-center justify-between mb-2">
-                              <label htmlFor={`mealplan`}>
-                                <strong>{`Mealplan `}</strong>
-                              </label>
-
-
-
-                              <div>
-                                <input
-                                  type="text"
-                                  value={mealplan.label} // Assuming each meal plan object has a 'label' property
-                                  onChange={(e) => updateMealplanLabel(index, e.target.value)} // Call updateMealplanLabel with the new label value
-                                />
-
-
-                                <IconButton onClick={() => updateMealplanField(index)} aria-label="update mealplan" color="primary">
-                                  <UpdateIcon />
-                                </IconButton>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                    </div>
-                  ))}
-                </div>
-
-
-                <div style={{ marginBottom: '30px' }}></div>
+                <div style={{ marginBottom: "20px" }}></div>
+                <TextField
+                  fullWidth
+                  {...register("meal")}
+                  error={errors.meal}
+                  helperText={errors.meal && errors.meal.message}
+                  id="meal"
+                  rows={2}
+                  multiline
+                  name="meal"
+                  label="Meal Plan"
+                />
 
                 <TextField
                   fullWidth
+                  {...register("duration")}
+                  error={errors.duration}
+                  helperText={errors.duration && errors.duration.message}
                   id="duration"
                   name="duration"
                   label="Duration"
-                  value={formik.values.duration}
-                  onChange={formik.handleChange}
-                  required
                 />
                 <TextField
+                  {...register("notes")}
+                  error={errors.notes}
+                  helperText={errors.notes && errors.notes.message}
                   fullWidth
                   multiline
                   rows={4}
                   id="notes"
                   name="notes"
                   label="Notes"
-                  value={formik.values.notes}
-                  onChange={formik.handleChange}
                 />
               </div>
             </div>
@@ -251,4 +194,3 @@ export default function MealPlan({ open, handleClose }) {
     </div>
   );
 }
-
