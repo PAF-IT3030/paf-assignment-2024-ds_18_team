@@ -52,7 +52,7 @@ public class WorkoutStatusUpdateController {
         // If the workout status update was updated successfully, return it as a response with status code 200 (OK), otherwise return 404 (Not Found)
         return updatedWorkoutStatusUpdate.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-    
+
 
 
     // Endpoint to delete an existing workout status update by its ID
