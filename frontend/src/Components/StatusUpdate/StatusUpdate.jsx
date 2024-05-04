@@ -1,5 +1,3 @@
-// StatusUpdate.js
-
 import React from 'react';
 import { Box, Button, Modal, TextField, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,6 +5,7 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 
 const StatusUpdate = ({ open, handleClose, initialValues, isEditing }) => {
+  // Function to handle form submission
   const handleSubmit = async (values) => {
     try {
       const requestData = {
@@ -28,12 +27,13 @@ const StatusUpdate = ({ open, handleClose, initialValues, isEditing }) => {
         await axios.post('http://localhost:8080/workout-status-updates', requestData);
         console.log('Workout status update created');
       }
-      handleClose();
+      handleClose(); // Close the dialog after successful submission
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
+  // Formik configuration for form handling and validation
   const formik = useFormik({
     initialValues: initialValues || {
       description: '',
@@ -64,19 +64,24 @@ const StatusUpdate = ({ open, handleClose, initialValues, isEditing }) => {
 
   return (
     <Modal open={open} onClose={handleClose}>
+      {/* Modal content */}
       <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 600, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
         <form onSubmit={formik.handleSubmit}>
           <div className='flex items-center justify-between'>
+            {/* Close button and title */}
             <div className='flex items-center space-x-3'>
               <IconButton onClick={handleClose} aria-label='delete'>
                 <CloseIcon />
               </IconButton>
               <p className=''>{isEditing ? 'Edit Status Update' : 'Add Status Update'}</p>
             </div>
+            {/* Submit button */}
             <Button type='submit'>{isEditing ? 'Update' : 'Save'}</Button>
           </div>
+          {/* Form fields */}
           <div className='hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]'>
             <div className='space-y-6 mt-4'>
+              {/* Description field */}
               <TextField
                 fullWidth
                 multiline
