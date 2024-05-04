@@ -1,16 +1,26 @@
 package com.paf.socailfitnessapplication.entity;
 
-import lombok.Data;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.domain.Auditable;
 
-@Document(collection = "users")
-@Data
-public class User {
+import java.io.Serializable;
+
+@Entity
+@Table(name = "users")
+public class User implements Serializable {
 
     @Id
-    private String id;
-    private String username;
-    private String email;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    // Constructors, getters, and setters
+}
+// Constructors, getters, and setters
 }
