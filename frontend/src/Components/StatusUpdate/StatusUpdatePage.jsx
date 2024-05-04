@@ -59,7 +59,7 @@ const StatusUpdatePage = () => {
                                 <Typography variant="body1" gutterBottom><strong>Distance:</strong> {update.metrics.distance}</Typography>
                                 <Typography variant="body1" gutterBottom><strong>Sets:</strong> {update.metrics.sets}</Typography>
                                 <Typography variant="body1" gutterBottom><strong>Time:</strong> {update.metrics.time}</Typography>
-                                <Typography variant="body2" gutterBottom><strong>Timestamp:</strong> {new Date(update.timestamp).toLocaleString()}</Typography>
+                                <Typography variant="body2" gutterBottom><strong></strong> {new Date(update.timestamp).toLocaleString()}</Typography>
                             </CardContent>
                             <CardActions sx={{ padding: '8px' }}>
                                 <IconButton onClick={() => handleDeleteStatusUpdate(update.id)} color="error">
