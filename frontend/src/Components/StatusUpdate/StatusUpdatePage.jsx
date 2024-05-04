@@ -21,17 +21,17 @@ const StatusUpdatePage = () => {
   };
 
   useEffect(() => {
-    const fetchStatusUpdates = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/workout-status-updates/user/1234');
-        setStatusUpdates(response.data);
-      } catch (error) {
-        console.error('Error fetching status updates:', error);
-      }
-    };
-
     fetchStatusUpdates();
-  }, []);
+  }, [openStatusUpdate]); // Trigger refetch when openStatusUpdate changes
+
+  const fetchStatusUpdates = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/workout-status-updates/user/1234');
+      setStatusUpdates(response.data);
+    } catch (error) {
+      console.error('Error fetching status updates:', error);
+    }
+  };
 
   const handleEditStatusUpdate = async (id) => {
     try {
@@ -51,6 +51,16 @@ const StatusUpdatePage = () => {
     } catch (error) {
       console.error('Error deleting status update:', error);
     }
+  };
+
+  const handleSaveStatus = async () => {
+    // Perform save operation
+    
+    // Reset editStatusUpdate to clear the form fields
+    setEditStatusUpdate(null);
+  
+    // After successfully saving the status, close the dialog
+    handleClose();
   };
 
   const filterStatusUpdates = (updates) => {
@@ -168,7 +178,7 @@ const StatusUpdatePage = () => {
           </div>
         ))}
       </div>
-      <StatusUpdate open={openStatusUpdate} handleClose={handleClose} initialValues={editStatusUpdate} isEditing={Boolean(editStatusUpdate)} />
+      <StatusUpdate open={openStatusUpdate} handleClose={handleClose} initialValues={editStatusUpdate} isEditing={Boolean(editStatusUpdate)} onSave={handleSaveStatus} />
     </div>
   );
 };
