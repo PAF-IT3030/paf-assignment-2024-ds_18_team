@@ -5,7 +5,6 @@ import WorkoutPlanDetails from './ViewWorkoutPlan';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditWorkoutPlanForm from './EditWorkoutPlan';
-import ShareIcon from '@mui/icons-material/Share';
 
 const WorkoutPlanPage = () => {
     const [workoutPlans, setWorkoutPlans] = useState([]);
@@ -14,9 +13,7 @@ const WorkoutPlanPage = () => {
     const [selectedWorkoutPlan, setSelectedWorkoutPlan] = useState(null);
     const [openEditForm, setOpenEditForm] = useState(false);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [shareDialogOpen, setShareDialogOpen] = useState(false);
     const [workoutToDelete, setWorkoutToDelete] = useState(null);
-    const [workoutToShare, setWorkoutToShare] = useState(null);
 
     const handleOpenAddWorkoutPlan = () => setOpenAddWorkoutPlan(true);
     const handleCloseAddWorkoutPlan = () => setOpenAddWorkoutPlan(false);
@@ -96,18 +93,6 @@ const WorkoutPlanPage = () => {
         }
     };
 
-    const handleShareWorkoutPlan = (workoutPlan) => {
-        setWorkoutToShare(workoutPlan);
-        setShareDialogOpen(true);
-    };
-
-    const confirmShareWorkoutPlan = () => {
-        // Implement the logic to share the workout plan to WorkoutPlanMain.jsx
-        // You can use API calls or state management to share the workout plan
-        console.log('Workout plan shared:', workoutToShare);
-        setShareDialogOpen(false);
-    };
-
     return (
         <div>
             {/* Add Workout Plan Button */}
@@ -140,9 +125,9 @@ const WorkoutPlanPage = () => {
                                 <IconButton onClick={() => handleDeleteWorkoutPlan(workoutPlan)} variant="outlined" color="primary">
                                     <DeleteIcon />
                                 </IconButton>
-                                <IconButton onClick={() => handleShareWorkoutPlan(workoutPlan)} variant="outlined" color="primary">
+                                {/*<IconButton onClick={() => handleShareWorkoutPlan(workoutPlan)} variant="outlined" color="primary">
                                     <ShareIcon />
-                                </IconButton>
+                                </IconButton>*/}
                             </div>
                         </div>
                     ))}
@@ -200,7 +185,7 @@ const WorkoutPlanPage = () => {
                 </DialogActions>
             </Dialog>
 
-            {/* Share Confirmation Dialog */}
+            {/* Share Confirmation Dialog 
             <Dialog
                 open={shareDialogOpen}
                 onClose={() => setShareDialogOpen(false)}
@@ -221,7 +206,7 @@ const WorkoutPlanPage = () => {
                         Share
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog>*/}
         </div>
     );
 };
