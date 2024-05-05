@@ -1,23 +1,44 @@
 package com.paf.socailfitnessapplication.controller;
 
+import com.paf.socailfitnessapplication.dto.UserDTO;
 import com.paf.socailfitnessapplication.entity.User;
 import com.paf.socailfitnessapplication.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
+    @PostMapping("/register")
+    public ResponseEntity<Object> createUser(@RequestBody User user) {
         return userService.createUser(user);
+    }
+
+    @GetMapping("/{userId}")
+    public UserDTO getUserById(@PathVariable String userId) {
+        return userService.getUserById(userId);
+    }
+
+    @GetMapping
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @PostMapping("/follow")
+    public ResponseEntity<Object> followUser(@RequestParam String userId, @RequestParam String FollowedUserId) {
+        return userService.followUser(userId,FollowedUserId);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<Object> loginUser(@RequestBody User user) {
+
+        return userService.loginUser(user.getEmail(), user.getPassword());
+
     }
 }
