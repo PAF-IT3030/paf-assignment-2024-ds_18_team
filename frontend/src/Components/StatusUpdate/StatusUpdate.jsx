@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Modal, TextField, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import ClearIcon from '@mui/icons-material/Clear'; // Importing ClearIcon
 import axios from 'axios';
 import { useFormik } from 'formik';
 
@@ -31,6 +32,11 @@ const StatusUpdate = ({ open, handleClose, initialValues, isEditing }) => {
     } catch (error) {
       console.error('Error:', error);
     }
+  };
+
+  // Function to handle form clearing
+  const handleClear = () => {
+    formik.resetForm(); // Resetting formik form
   };
 
   // Formik configuration for form handling and validation
@@ -75,11 +81,9 @@ const StatusUpdate = ({ open, handleClose, initialValues, isEditing }) => {
               </IconButton>
               <p className=''>{isEditing ? 'Edit Status Update' : 'Add Status Update'}</p>
             </div>
-            {/* Submit button */}
-            <Button type='submit'>{isEditing ? 'Update' : 'Save'}</Button>
           </div>
           {/* Form fields */}
-          <div className='hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]'>
+          <div className='hideScrollBar overflow-y-scroll overflow-x-hidden h-[70vh]'>
             <div className='space-y-6 mt-4'>
               {/* Description field */}
               <TextField
@@ -112,6 +116,13 @@ const StatusUpdate = ({ open, handleClose, initialValues, isEditing }) => {
                 />
               ))}
             </div>
+          </div>
+          {/* Buttons */}
+          <div className="flex justify-end mt-4 space-x-2">
+            {/* Clear button */}
+            <Button variant="outlined" onClick={handleClear} startIcon={<ClearIcon />}>Clear</Button>
+            {/* Submit button */}
+            <Button type='submit'>{isEditing ? 'Update' : 'Save'}</Button>
           </div>
         </form>
       </Box>
