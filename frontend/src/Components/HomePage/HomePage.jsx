@@ -5,6 +5,7 @@ import HomeSection from '../HomeSection/HomeSection'
 import RightPart from '../RightPart/RightPart'
 import { Route, Routes } from 'react-router-dom';
 import Profile from '../Profile/Profile'
+import ShareWorkoutPlan from '../WorkoutPlan/ShareWorkoutPlan'
 
 const HomePage = () => {
   return (
@@ -21,6 +22,7 @@ const HomePage = () => {
             <Route path="/" element={<HomeSection/>}></Route>
             <Route path="/home" element={<HomeSection/>}></Route>
             <Route path="/profile/:id" element={<Profile/>}></Route>
+            <Route path="/workoutplan" element={<ShareWorkoutPlan/>}></Route>
           </Routes>
 
         </Grid>
