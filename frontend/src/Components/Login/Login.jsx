@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
 import './Login.css'; // Import custom CSS for styling
 
 const Login = () => {
@@ -10,6 +11,19 @@ const Login = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleGoogleSuccess = async (response) => {
+    // Handle successful Google login
+    // You can perform further actions here, such as sending the token to the server for verification
+    console.log('Google login successful', response);
+    navigate('/home'); // Redirect to home page after successful login
+  };
+
+  const handleGoogleFailure = (error) => {
+    // Handle failed Google login
+    console.error('Google login failed', error);
+    setError('Failed to login with Google');
   };
 
   const handleSubmit = async (e) => {
@@ -49,6 +63,13 @@ const Login = () => {
         </div>
         <button type="submit" className="login-button">Login</button>
       </form>
+      <GoogleLogin
+        clientId="your-google-client-id.apps.googleusercontent.com"
+        buttonText="Login with Google"
+        onSuccess={handleGoogleSuccess}
+        onFailure={handleGoogleFailure}
+        cookiePolicy={'single_host_origin'}
+      />
     </div>
   );
 };
