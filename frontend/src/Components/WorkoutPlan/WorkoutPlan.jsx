@@ -26,19 +26,26 @@ const style = {
 export default function WorkoutPlan({ open, handleClose, onSave }) {
 
   const handleSubmit = async (values) => {
+    const postData = {
+      ...values,
+      userId: "1234", //change your userId
+      username: "Isuru", //change your username
+    };
+    console.log(postData);
+
     try {
       const response = await fetch('http://localhost:8081/workoutPlans', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(postData),
       });
       if (response.ok) {
         const data = await response.json();
         console.log('Workout plan created:', data);
         handleClose(); // Close the modal after successful creation
-        window.location.reload();
+        window.location.href = "/workoutplan";
       } else {
         // Handle the error response
         console.error('Error creating workout plan:', response.statusText);
