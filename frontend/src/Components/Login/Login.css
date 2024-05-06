@@ -44,3 +44,17 @@
     margin-bottom: 10px;
   }
   
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-content {
+    width: 300px; /* Adjust the width as needed */
+    text-align: center;
+  }
+  
+  /* Additional styles for the form, buttons, etc. */
+  

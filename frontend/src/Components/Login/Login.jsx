@@ -13,19 +13,6 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleGoogleSuccess = async (response) => {
-    // Handle successful Google login
-    // You can perform further actions here, such as sending the token to the server for verification
-    console.log('Google login successful', response);
-    navigate('/home'); // Redirect to home page after successful login
-  };
-
-  const handleGoogleFailure = (error) => {
-    // Handle failed Google login
-    console.error('Google login failed', error);
-    setError('Failed to login with Google');
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,11 +23,12 @@ const Login = () => {
         },
         body: JSON.stringify(formData),
       });
+
       if (response.ok) {
-        const user = await response.json();
-        // Redirect to home page or perform any other action on successful login
+        // Authentication successful, redirect the user to the home page or any other page
         navigate('/home');
       } else {
+        // Authentication failed, set error message
         setError('Invalid username or password');
       }
     } catch (error) {
@@ -48,28 +36,47 @@ const Login = () => {
     }
   };
 
+  // Google OAuth2 response handler
+  const responseGoogle = (response) => {
+    console.log(response);
+    // Handle Google OAuth2 response
+    // For example, you can send the Google OAuth2 token to your backend for verification
+  };
+
+  const handleSignup = () => {
+    // Navigate to the signup page
+    navigate('/signup');
+  };
+
   return (
     <div className="login-container">
-      <h2>Login</h2>
-      {error && <div className="error-message">{error}</div>}
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
+      <div className="login-content">
+        <h2>Login</h2>
+        {error && <div className="error-message">{error}</div>}
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+          </div>
+          <button type="submit" className="login-button">Login</button>
+        </form>
+        <div className="signup-link">
+          <button onClick={handleSignup} className="signup-button">Sign Up</button>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+        <div className="google-login">
+          <GoogleLogin
+            clientId="255847001730-p284moskphraui764jj1nh97asndp6ik.apps.googleusercontent.com"
+            buttonText="Login with Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
         </div>
-        <button type="submit" className="login-button">Login</button>
-      </form>
-      <GoogleLogin
-        clientId="your-google-client-id.apps.googleusercontent.com"
-        buttonText="Login with Google"
-        onSuccess={handleGoogleSuccess}
-        onFailure={handleGoogleFailure}
-        cookiePolicy={'single_host_origin'}
-      />
+      </div>
     </div>
   );
 };
