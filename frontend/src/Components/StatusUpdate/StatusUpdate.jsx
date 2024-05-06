@@ -10,7 +10,7 @@ const StatusUpdate = ({ open, handleClose, initialValues, isEditing }) => {
   const handleSubmit = async (values) => {
     try {
       const requestData = {
-        userId: '1234', // Replace '1234' with the actual user ID retrieved from your frontend
+        userId: '9876', // Replace '1234' with the actual user ID retrieved from your frontend
         description: values.description,
         metrics: {
           distance: values.metrics.distance,
