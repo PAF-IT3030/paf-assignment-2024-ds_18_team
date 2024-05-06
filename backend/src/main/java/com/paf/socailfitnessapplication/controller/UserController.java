@@ -3,6 +3,8 @@ package com.paf.socailfitnessapplication.controller;
 import com.paf.socailfitnessapplication.entity.User;
 import com.paf.socailfitnessapplication.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,11 +49,18 @@ public class UserController {
     }
 
     @PostMapping("/authenticate")
-    public User authenticateUser(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<?> authenticateUser(@RequestBody Map<String, String> credentials) {
         String username = credentials.get("username");
         String password = credentials.get("password");
-        return userService.authenticateUser(username, password);
+        User authenticatedUser = userService.authenticateUser(username, password);
+
+        if (authenticatedUser != null) {
+            return ResponseEntity.ok(authenticatedUser);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+        }
     }
+
 
     // Endpoint to handle OAuth2 callback from Google
     @GetMapping("/login/oauth2/code/google")

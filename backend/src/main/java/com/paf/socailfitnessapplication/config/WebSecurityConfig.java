@@ -1,13 +1,10 @@
 package com.paf.socailfitnessapplication.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -17,23 +14,21 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
 
-    @Autowired
-    private ClientRegistrationRepository clientRegistrationRepository;
+public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(t -> t.configurationSource(corsConfigurationSource()))
-                .csrf().disable()
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth2 -> {
-                    oauth2.clientRegistrationRepository(clientRegistrationRepository);
-                });
+                .cors(t ->
+                        t.configurationSource(corsConfigurationSource())
+                ).csrf(t ->
+                        t.disable()
+                ).authorizeHttpRequests(t ->
+                        t.requestMatchers("/api/**").permitAll()
+                                .anyRequest().permitAll()
+                );
+
 
         return http.build();
     }
@@ -44,17 +39,17 @@ public class WebSecurityConfig {
         configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
         configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
-        configuration.setExposedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+        configuration.setAllowedHeaders(List.of("Authorization","Cache-Control","Content-Type"));
+        configuration.setExposedHeaders(List.of("Authorization","Cache-Control","Content-Type"));
         configuration.setMaxAge(3600L);
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
 
         return source;
     }
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
