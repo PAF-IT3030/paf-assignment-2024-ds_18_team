@@ -5,6 +5,8 @@ import HomeSection from '../HomeSection/HomeSection'
 import RightPart from '../RightPart/RightPart'
 import { Route, Routes } from 'react-router-dom'
 import Profile from '../Profile/Profile'
+import MealPlanHome from '../MealPlan/MealPlan'
+
 
 const HomePage = () => {
   return (
@@ -18,6 +20,7 @@ const HomePage = () => {
         className='px-5 lg:px-9 hidden lg:block w-full relative'>
         <Routes>
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/mealplan" element={<MealPlanHome/>}></Route>
         </Routes>
         <HomeSection />
 
