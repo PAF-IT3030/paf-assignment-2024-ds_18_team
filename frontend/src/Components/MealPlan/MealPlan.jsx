@@ -49,7 +49,7 @@ export default function MealPlan({ open, handleClose }) {
     const postData = {
       ...data,
       userId: "1234", //change your userId
-      username: "Isuru", //change your username
+      username: "Sanduni", //change your username
     };
     console.log(postData);
 
