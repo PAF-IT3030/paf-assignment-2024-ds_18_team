@@ -11,6 +11,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import WorkoutPlanPage from '../WorkoutPlan/WorkoutPlanPage';
+import StatusUpdatePage from '../StatusUpdate/StatusUpdatePage';
 
 const Profile = () => {
 
@@ -34,9 +35,14 @@ const Profile = () => {
         if (newValue === 3) {
             console.log("meal plan")
         }
+
+        else if (newValue === "4") {
+            console.log("Workout Status");
+        }
         else if (newValue === 1) {
             console.log("posts")
         }
+        
     }
 
     return (
@@ -134,7 +140,7 @@ const Profile = () => {
                         <TabPanel value="1">Users Posts</TabPanel>
                         <TabPanel value="2"><WorkoutPlanPage/></TabPanel>
                         <TabPanel value="3">Users Meal plans</TabPanel>
-                        <TabPanel value="4">Workout Status</TabPanel>
+                        <TabPanel value="4"><StatusUpdatePage /></TabPanel>
                     </TabContext>
                 </Box>
             </section>

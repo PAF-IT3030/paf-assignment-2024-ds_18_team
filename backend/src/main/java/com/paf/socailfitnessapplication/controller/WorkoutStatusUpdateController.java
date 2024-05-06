@@ -53,6 +53,8 @@ public class WorkoutStatusUpdateController {
         return updatedWorkoutStatusUpdate.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
+
     // Endpoint to delete an existing workout status update by its ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteWorkoutStatusUpdate(@PathVariable String id) {

@@ -27,11 +27,17 @@ public class WebSecurityConfig {
                 ).authorizeHttpRequests(t ->
                         t.requestMatchers("/api/**").permitAll()
                                 .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth2Login ->
+                        oauth2Login
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/home", true)
+                                .failureUrl("/login?error=true")
                 );
-
 
         return http.build();
     }
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
@@ -51,7 +57,5 @@ public class WebSecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
 }
-
-

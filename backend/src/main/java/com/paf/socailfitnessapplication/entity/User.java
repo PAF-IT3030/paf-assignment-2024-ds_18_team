@@ -12,5 +12,11 @@ public class User {
     private String id;
     private String username;
     private String email;
+    private String password; // Add password field
+
+    // Add setter method for name
+    public void setName(String name) {
+        this.username = name;
+    }
 
 }
