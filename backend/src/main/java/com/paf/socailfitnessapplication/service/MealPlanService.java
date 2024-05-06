@@ -16,4 +16,3 @@ public interface MealPlanService {
 
     void deleteMealPlan(String mealPlanId);
 }
-

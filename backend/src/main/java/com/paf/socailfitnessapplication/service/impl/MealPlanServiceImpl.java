@@ -60,4 +60,3 @@ public class MealPlanServiceImpl implements MealPlanService {
     }
 
 }
-
