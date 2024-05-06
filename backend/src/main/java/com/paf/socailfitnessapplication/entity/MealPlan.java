@@ -1,7 +1,5 @@
 package com.paf.socailfitnessapplication.entity;
 
-
-
 import java.time.LocalDateTime;
 import java.util.Date;
 
