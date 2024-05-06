@@ -1,4 +1,4 @@
-/*package com.paf.socailfitnessapplication.config;
+package com.paf.socailfitnessapplication.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ public class ModelMapperConfig {
      *
      * @return         	an instance of ModelMapper
      */
-    /*@Bean
+    @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
@@ -21,11 +21,11 @@ public class ModelMapperConfig {
 
         return modelMapper;
     }
-}*/
+}
 
 
 
-package com.paf.socailfitnessapplication.config;
+/*package com.paf.socailfitnessapplication.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -74,7 +74,7 @@ public class WebSecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-}
+}*/
 
 
 
