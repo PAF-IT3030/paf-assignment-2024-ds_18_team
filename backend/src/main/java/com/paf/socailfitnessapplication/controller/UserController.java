@@ -61,12 +61,4 @@ public class UserController {
         }
     }
 
-
-    // Endpoint to handle OAuth2 callback from Google
-    @GetMapping("/login/oauth2/code/google")
-    public String handleGoogleCallback(OAuth2AuthenticationToken token) {
-        // Handle OAuth2 callback from Google
-        // Extract OAuth2 details from the token and process further
-        return "OAuth2 callback handled successfully";
-    }
 }

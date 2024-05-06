@@ -12,4 +12,5 @@ public interface UserService {
     void deleteUser(String id);
     User getUserByUsername(String username);
     User authenticateUser(String username, String password); // New method for user authentication
+
 }
