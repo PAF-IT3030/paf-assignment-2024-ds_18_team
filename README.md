@@ -11,5 +11,5 @@ Please go under edit and edit this file as needed for your project
 
 #### Brief Description of your Solution - 
 
-Note - The student's github account should be given in brackets e.g. (asiriRepos), this ideally should be your student id 
+The goal of this project is to develop a user-friendly social media platform tailored for fitness enthusiasts to share their fitness journey, workouts, and healthy lifestyle tips. This platform will facilitate users in uploading media content, sharing workout statuses, exchanging workout and meal plans, and interacting with other users. The goal is to foster a supportive community where individuals can inspire and motivate each other to achieve their fitness goals.
 
