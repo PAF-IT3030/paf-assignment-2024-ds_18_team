@@ -5,7 +5,6 @@ import com.paf.socailfitnessapplication.repo.CommentRepository;
 import com.paf.socailfitnessapplication.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -26,17 +25,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> getAllCommentsByPostId(String postId) {
-        return commentRepository.findAllByPostId(postId);
+    public List<Comment> getAllCommentsByUserId(String userId) {
+        return commentRepository.findByUserId(userId);
     }
 
     @Override
-    public Optional<Comment> updateComment(String id, Comment comment) {
-        if (commentRepository.existsById(id)) {
-            comment.setId(id);
-            return Optional.of(commentRepository.save(comment));
-        }
-        return Optional.empty();
+    public List<Comment> getAllCommentsByPostId(String postId) {
+        return commentRepository.findByPostId(postId);
     }
 
     @Override

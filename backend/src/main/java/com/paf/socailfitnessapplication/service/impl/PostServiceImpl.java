@@ -25,8 +25,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
+    }
+
+    @Override
     public List<Post> getAllPostsByUserId(String userId) {
         return postRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<Post> searchPostsByKeyword(String keyword) {
+        return postRepository.findByCaptionContainingIgnoreCase(keyword);
+    }
+
+    @Override
+    public List<Post> getPostsLikedByUser(String userId) {
+        return postRepository.findByLikesUserId(userId);
+    }
+
+    @Override
+    public List<Post> getPostsCommentedByUser(String userId) {
+        return postRepository.findByCommentsUserId(userId);
     }
 
     @Override

@@ -7,8 +7,7 @@ import java.util.Optional;
 public interface CommentService {
     Comment createComment(Comment comment);
     Optional<Comment> getCommentById(String id);
+    List<Comment> getAllCommentsByUserId(String userId);
     List<Comment> getAllCommentsByPostId(String postId);
-    Optional<Comment> updateComment(String id, Comment comment);
     boolean deleteComment(String id);
 }
-

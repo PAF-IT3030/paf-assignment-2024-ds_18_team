@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,11 +29,16 @@ public class CommentController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Comment> updateComment(@PathVariable String id, @RequestBody Comment comment) {
-        Optional<Comment> updatedComment = commentService.updateComment(id, comment);
-        return updatedComment.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Comment>> getAllCommentsByUserId(@PathVariable String userId) {
+        List<Comment> comments = commentService.getAllCommentsByUserId(userId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
+    @GetMapping("/post/{postId}")
+    public ResponseEntity<List<Comment>> getAllCommentsByPostId(@PathVariable String postId) {
+        List<Comment> comments = commentService.getAllCommentsByPostId(postId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

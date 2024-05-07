@@ -12,12 +12,11 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "comments")
-public class Comment {
+@Document(collection = "likes")
+public class Like {
     @Id
     private String id;
     private String userId;
     private String postId;
-    private String text;
     private Date createdAt;
 }
