@@ -1,160 +1,115 @@
-import React from "react";
-import RepeatIcon from "@mui/icons-material/Repeat";
-import { Avatar, Button, Menu, MenuItem } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteOutlined from "@mui/icons-material/FavoriteOutlined";
+import React, { useState } from "react";
+import { Avatar, Button, IconButton } from "@mui/material";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ChatIcon from "@mui/icons-material/Chat";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ReplyModel from "./ReplyModel";
-import { useState } from "react";
 
-const MealPost = () => {
-  const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+const MealPost = ({ handlePost }) => {
+  const [caption, setCaption] = useState("");
+  const [image, setImage] = useState(null);
   const [openReplyModel, setOpenReplyModel] = useState(false);
-  const handleOpenProfileModel = () => setOpenReplyModel(true);
-  const handleCloseReplyModal = () => setOpenReplyModel(false);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleDeletePost = () => {
-    console.log("delete post");
-    handleClose();
-  };
-  const handleEditPost = () => {};
 
-  const handleCreateRepost = () => {
-    console.log("create repost");
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
   };
-  const handleLikedPost = () => {
-    console.log("liked post");
+
+  const handleEditPost = () => {
+    // Logic to edit the post
+    console.log("Edit Post");
+  };
+
+  const handleDeletePost = () => {
+    // Logic to delete the post
+    console.log("Delete Post");
   };
 
   const handleOpenReplyModel = () => {
     setOpenReplyModel(true);
   };
 
+  const handlePostClick = () => {
+    if (image && caption) {
+      // Create a new meal object
+      const newMeal = {
+        caption: caption,
+        image: URL.createObjectURL(image),
+      };
+      // Call handlePost function from parent component
+      handlePost(newMeal);
+      // Reset caption and image state
+      setCaption("");
+      setImage(null);
+    }
+  };
+
   return (
-    <React.Fragment>
-      <div className="flex space-x-5">
-        <Avatar
-          onClick={() => navigate(`/profile/${6}`)}
-          className="cursor-pointer"
-          alt="username"
-          src="https://thumbs.dreamstime.com/b/icon-profile-circle-not-shadow-color-dark-blue-icon-profile-circle-not-shadow-color-dark-blue-background-194699290.jpg"
+    <div className="p-4 border rounded-md shadow-md bg-white">
+      {/* User Info */}
+      {/* Caption */}
+      <textarea
+        rows={4}
+        placeholder="Write a caption..."
+        className="w-full border border-gray-300 rounded-md p-2 mb-2"
+        value={caption}
+        onChange={(e) => setCaption(e.target.value)}
+      ></textarea>
+      {/* Image Upload */}
+      <div className="flex items-center mb-2">
+        <input
+          type="file"
+          accept="image/*"
+          id="image-upload"
+          className="hidden"
+          onChange={handleImageChange}
         />
-        <div className="w-full">
-          <div className="flex justify-between items-center">
-            <div className="cursor-pointer items-center space-x-2">
-              <span className="font-semibold">User1</span>
-              <span className="text-gray-600">@user1.2m</span>
-              <img
-                className="ml-2 w-5 h-5"
-                src="https://img.icons8.com/ios/452/verified-account.png"
-                alt="verified"
-              />
-            </div>
-            <div>
-              <Button
-                id="basic-button"
-                aria-controls={open ? "basic-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                <MoreHorizIcon style={{ color: "#20207D" }} />
-              </Button>
-              <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                  "aria-labelledby": "basic-button",
-                }}
-              >
-                <MenuItem onClick={handleEditPost}>Edit</MenuItem>
-                <MenuItem onClick={handleDeletePost}>Delete</MenuItem>
-              </Menu>
-            </div>
-          </div>
-          <div className="mt-2">
-            <div
-              className="cursor-pointer"
-              onClick={() => navigate(`/twit/${3}`)}
-            >
-              <p className=" mb-2 p-0">Mela Plan Cone</p>
-              <img
-                className="w-[28rem] border border-gray-300 p-5 rounded-md"
-                src="https://images.pexels.com/photos/2827400/pexels-photo-2827400.jpeg?auto=compress&cs=tinysrgb&w=600"
-                alt="meal"
-              />
-            </div>
-            <div className="py-5 flex flex-wrap justify-between items-center">
-              <div className="space-x-5 flex items-center text-gray-600">
-                <ChatBubbleOutlineIcon
-                  className="cursor-pointer"
-                  onClick={handleOpenReplyModel}
-                />
-                <p>43</p>
-              </div>
-              <div
-                className={`${
-                  true ? "text-pink-600" : "text-gray-600"
-                } space-x-3 flex-items-center`}
-              >
-                <RepeatIcon
-                  className="cursor-pointer"
-                  onClick={handleCreateRepost}
-                ></RepeatIcon>
-                <p>56</p>
-              </div>
-              <div
-                className={`${
-                  true ? "text-pink-600" : "text-gray-600"
-                } space-x-3 flex-items-center`}
-              >
-                {true ? (
-                  <FavoriteIcon
-                    className="cursor-pointer"
-                    onClick={handleCreateRepost}
-                  />
-                ) : (
-                  <FavoriteOutlined
-                    onClick={handleLikedPost}
-                    className="cursor-pointer"
-                  />
-                )}
-                <p>26</p>
-              </div>
-              <div className="space-x-5 flex items-center text-gray-600">
-                <BarChartIcon
-                  className="cursor-pointer"
-                  onClick={handleOpenReplyModel}
-                />
-                <p>4</p>
-              </div>
-              <div className="space-x-5 flex items-center text-gray-600">
-                <ChatBubbleOutlineIcon
-                  className="cursor-pointer"
-                  onClick={handleOpenReplyModel}
-                />
-                <p>43</p>
-              </div>
-            </div>
-          </div>
+        <label htmlFor="image-upload">
+          <IconButton component="span">
+            <PhotoCameraIcon />
+          </IconButton>
+        </label>
+        {image && (
+          <img
+            src={URL.createObjectURL(image)}
+            alt="Uploaded"
+            className="w-20 h-20 object-cover rounded-md ml-2"
+          />
+        )}
+      </div>
+      {/* Action Buttons */}
+      <div className="flex items-center justify-between">
+        <div>
+          <IconButton onClick={handlePostClick} disabled={!image || !caption}>
+            <ThumbUpIcon />
+          </IconButton>
+          <IconButton onClick={handleOpenReplyModel}>
+            <ChatIcon />
+          </IconButton>
+        </div>
+        <div>
+          <IconButton onClick={handleEditPost}>
+            <EditIcon />
+          </IconButton>
+          <IconButton onClick={handleDeletePost}>
+            <DeleteIcon />
+          </IconButton>
+          <Button
+            variant="contained"
+            onClick={handlePostClick}
+            disabled={!image || !caption}
+          >
+            Post
+          </Button>
         </div>
       </div>
-      <section>
-        <ReplyModel open={openReplyModel} handleClose={handleCloseReplyModal} />
-      </section>
-    </React.Fragment>
+      {/* Reply Model */}
+      <ReplyModel
+        open={openReplyModel}
+        handleClose={() => setOpenReplyModel(false)}
+      />
+    </div>
   );
 };
 
