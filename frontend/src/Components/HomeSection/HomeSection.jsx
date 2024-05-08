@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import MealPost from "./MealPost";
+import { addPost } from "../Store/Action";
 
-const HomeSection = () => {
-  const [meals, setMeals] = useState([]);
-
+const HomeSection = ({ meals, dispatch }) => {
   const handlePost = (newMeal) => {
-    setMeals([...meals, newMeal]);
+    // Dispatch the addPost action to add the new meal to the store
+    dispatch(addPost(newMeal));
   };
 
   return (
@@ -25,4 +26,10 @@ const HomeSection = () => {
   );
 };
 
-export default HomeSection;
+const mapStateToProps = (state) => {
+  return {
+    meals: state.post.posts,
+  };
+};
+
+export default connect(mapStateToProps)(HomeSection);

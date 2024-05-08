@@ -31,7 +31,7 @@ export const addPost = (postData) => {
   return async (dispatch) => {
     dispatch({ type: ADD_POST_REQUEST });
     try {
-      const response = await axios.post("/posts", postData);
+      const response = await axios.post("/api/posts", postData);
       dispatch({ type: ADD_POST_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({ type: ADD_POST_FAILURE, payload: error.message });

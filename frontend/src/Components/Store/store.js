@@ -1,10 +1,12 @@
 // store.js
 import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import rootReducer from "./reducers";
+import { postReducer } from "./Reducer";
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    post: postReducer,
+  },
   middleware: [thunk],
 });
 

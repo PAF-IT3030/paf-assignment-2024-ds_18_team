@@ -10,7 +10,7 @@ const MealDetails = () => {
   return (
     <React.Fragment>
       <section
-        className={` bg-white z-50 flex items-center stichy top-0 bg-opacity-95`}
+        className={` bg-white z-50 flex items-center sticky top-0 bg-opacity-95`}
       >
         <KeyboardBackspaceIcon
           className="cursor-pointer"
@@ -24,7 +24,6 @@ const MealDetails = () => {
         <MealPost />
         <Divider sx={{ margin: "2rem 0rem" }} />
       </section>
-      <section>{[1, 1, 1].map((item) => () => <MealPost />)}</section>
     </React.Fragment>
   );
 };
