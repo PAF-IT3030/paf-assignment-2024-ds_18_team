@@ -62,3 +62,8 @@ export const deletePost = (postId) => {
     }
   };
 };
+export const incrementLikes = () => {
+  return {
+    type: "INCREMENT_LIKES",
+  };
+};
