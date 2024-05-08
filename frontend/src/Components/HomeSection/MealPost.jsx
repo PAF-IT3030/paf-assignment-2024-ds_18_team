@@ -1,74 +1,37 @@
-import React, { useState } from "react";
-import { IconButton, Button } from "@mui/material";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ChatIcon from "@mui/icons-material/Chat";
+import React from "react";
+import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReplyModel from "./ReplyModel";
 import { useDispatch } from "react-redux";
-import { addPost } from "../Store/Actions"; // Assuming your action is in this file
 
-const MealPost = () => {
+const MealPost = ({ meal }) => {
   const dispatch = useDispatch();
-  const [caption, setCaption] = useState("");
-  const [image, setImage] = useState(null);
-  const [openReplyModel, setOpenReplyModel] = useState(false);
+  const { caption, imageUrl } = meal;
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+  const handleEditPost = () => {
+    // Placeholder logic for editing post
+    console.log("Edit Post");
   };
 
-  const handlePostClick = () => {
-    if (image && caption) {
-      const formData = new FormData();
-      formData.append("caption", caption);
-      formData.append("image", image);
-      dispatch(addPost(formData));
-      setCaption("");
-      setImage(null);
-    }
+  const handleDeletePost = () => {
+    // Placeholder logic for deleting post
+    console.log("Delete Post");
   };
 
   return (
-    <div className="p-4 border rounded-md shadow-md bg-white">
-      <textarea
-        rows={4}
-        placeholder="Write a caption..."
-        className="w-full border border-gray-300 rounded-md p-2 mb-2"
-        value={caption}
-        onChange={(e) => setCaption(e.target.value)}
-      ></textarea>
-      <div className="flex items-center mb-2">
-        <input
-          type="file"
-          accept="image/*"
-          id="image-upload"
-          className="hidden"
-          onChange={handleImageChange}
-        />
-        <label htmlFor="image-upload">
-          <IconButton component="span">
-            <PhotoCameraIcon />
-          </IconButton>
-        </label>
-        {image && (
+    <div className="p-4 border rounded-md shadow-md bg-white margin">
+      <div className="flex items-center mb-2">{caption}</div>
+      {imageUrl && (
+        <div className="flex items-center mb-2">
           <img
-            src={URL.createObjectURL(image)}
+            src={imageUrl}
             alt="Uploaded"
             className="w-20 h-20 object-cover rounded-md ml-2"
           />
-        )}
-      </div>
-      <div className="flex items-center justify-between">
-        <div>
-          <IconButton onClick={handlePostClick} disabled={!image || !caption}>
-            <ThumbUpIcon />
-          </IconButton>
-          <IconButton onClick={() => setOpenReplyModel(true)}>
-            <ChatIcon />
-          </IconButton>
         </div>
+      )}
+      <div className="flex items-center justify-between">
         <div>
           <IconButton onClick={() => handleEditPost()}>
             <EditIcon />
@@ -76,19 +39,9 @@ const MealPost = () => {
           <IconButton onClick={() => handleDeletePost()}>
             <DeleteIcon />
           </IconButton>
-          <Button
-            variant="contained"
-            onClick={handlePostClick}
-            disabled={!image || !caption}
-          >
-            Post
-          </Button>
         </div>
       </div>
-      <ReplyModel
-        open={openReplyModel}
-        handleClose={() => setOpenReplyModel(false)}
-      />
+      <ReplyModel />
     </div>
   );
 };

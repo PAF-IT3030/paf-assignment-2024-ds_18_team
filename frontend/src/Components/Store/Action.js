@@ -13,7 +13,7 @@ import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
-} from "./ActionTypes";
+} from "./ActionType";
 
 export const fetchPosts = () => {
   return async (dispatch) => {
@@ -31,8 +31,8 @@ export const addPost = (postData) => {
   return async (dispatch) => {
     dispatch({ type: ADD_POST_REQUEST });
     try {
-      const response = await axios.post("/api/posts", postData);
-      dispatch({ type: ADD_POST_SUCCESS, payload: response.data });
+      // const response = await axios.post("/api/posts", postData);
+      dispatch({ type: ADD_POST_SUCCESS, payload: postData });
     } catch (error) {
       dispatch({ type: ADD_POST_FAILURE, payload: error.message });
     }

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import MealPost from "./MealPost";
 import { addPost } from "../Store/Action";
+import NewPost from "./NewPost";  
 
 const HomeSection = ({ meals, dispatch }) => {
   const handlePost = (newMeal) => {
@@ -17,10 +18,12 @@ const HomeSection = ({ meals, dispatch }) => {
       <section className="pb-10">
         {/* Render existing posts */}
         {meals.map((meal, index) => (
-          <MealPost key={index} meal={meal} />
+          <MealPost key={index} meal={meal} imageUrl={meal.imageUrl} />
         ))}
+        {/* Assuming meal object contains the imageUrl property */}
+
         {/* Render new post */}
-        <MealPost handlePost={handlePost} />
+        <NewPost handlePost={handlePost} />
       </section>
     </div>
   );

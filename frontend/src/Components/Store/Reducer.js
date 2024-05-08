@@ -12,7 +12,7 @@ import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
-} from "./ActionTypes";
+} from "./ActionType";
 
 const initialState = {
   posts: [],
