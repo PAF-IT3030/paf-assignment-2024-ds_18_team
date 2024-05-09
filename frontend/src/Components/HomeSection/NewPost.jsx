@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { IconButton, Button } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ChatIcon from "@mui/icons-material/Chat";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ReplyModel from "./ReplyModel";
+
 import { useDispatch } from "react-redux";
 import { addPost } from "../Store/Action";
 
@@ -13,7 +13,7 @@ const NewPost = () => {
   const dispatch = useDispatch();
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
-  const [openReplyModel, setOpenReplyModel] = useState(false);
+ 
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -96,9 +96,7 @@ const NewPost = () => {
           <IconButton onClick={handlePostClick} disabled={!image || !caption}>
             <ThumbUpIcon />
           </IconButton>
-          <IconButton onClick={() => setOpenReplyModel(true)}>
-            <ChatIcon />
-          </IconButton>
+
         </div>
         <div>
           <IconButton onClick={() => handleEditPost()}>
@@ -116,10 +114,7 @@ const NewPost = () => {
           </Button>
         </div>
       </div>
-      <ReplyModel
-        open={openReplyModel}
-        handleClose={() => setOpenReplyModel(false)}
-      />
+
     </div>
   );
 };

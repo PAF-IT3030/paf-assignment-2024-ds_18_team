@@ -13,6 +13,15 @@ import {
   DELETE_POST_REQUEST,
   DELETE_POST_SUCCESS,
   DELETE_POST_FAILURE,
+  FETCH_COMMENT_REQUEST,
+  FETCH_COMMENT_SUCCESS,
+  FETCH_COMMENT_FAILURE,
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_SUCCESS,
+  ADD_COMMENT_FAILURE,
+  DELETE_COMMENT_REQUEST,
+  DELETE_COMMENT_SUCCESS,
+  DELETE_COMMENT_FAILURE,
 } from "./ActionType";
 
 export const fetchPosts = () => {
@@ -59,6 +68,41 @@ export const deletePost = (postId) => {
       dispatch({ type: DELETE_POST_SUCCESS, payload: postId });
     } catch (error) {
       dispatch({ type: DELETE_POST_FAILURE, payload: error.message });
+    }
+  };
+};
+export const fetchComments = (postId) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_COMMENT_REQUEST });
+    try {
+      const response = await axios.get(`/posts/${postId}/comments`);
+      dispatch({ type: FETCH_COMMENT_SUCCESS, payload: response.data });
+    } catch (error) {
+      dispatch({ type: FETCH_COMMENT_FAILURE, payload: error.message });
+    }
+  };
+};
+
+export const addComment = (postId, commentData) => {
+  return async (dispatch) => {
+    dispatch({ type: ADD_COMMENT_REQUEST });
+    try {
+      // const response = await axios.post(`/posts/${postId}/comments`, commentData);
+      dispatch({ type: ADD_COMMENT_SUCCESS, payload: commentData });
+    } catch (error) {
+      dispatch({ type: ADD_COMMENT_FAILURE, payload: error.message });
+    }
+  };
+};
+
+export const deleteComment = (postId, commentId) => {
+  return async (dispatch) => {
+    dispatch({ type: DELETE_COMMENT_REQUEST });
+    try {
+      await axios.delete(`/posts/${postId}/comments/${commentId}`);
+      dispatch({ type: DELETE_COMMENT_SUCCESS, payload: commentId });
+    } catch (error) {
+      dispatch({ type: DELETE_COMMENT_FAILURE, payload: error.message });
     }
   };
 };

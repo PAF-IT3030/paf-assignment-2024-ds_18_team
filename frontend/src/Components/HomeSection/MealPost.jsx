@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ReplyModel from "./ReplyModel";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useDispatch } from "react-redux";
 import { incrementLikes } from "../Store/Action";
 import EditPost from "./EditPost";
+import CommentModel from "./CommentModel";
 
-const MealPost = ({ meal }) => {
+const MealPost = ({ meal, onAddComment }) => {
   const dispatch = useDispatch();
   const {
     id,
@@ -21,8 +21,10 @@ const MealPost = ({ meal }) => {
   const [likes, setLikes] = useState(0);
   const [caption, setCaption] = useState(initialCaption);
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
-  const [replyModelOpen, setReplyModelOpen] = useState(false);
+  const [comments, setComments] = useState([]);
+
   const [isEditing, setIsEditing] = useState(false);
+  const [commentModelOpen, setCommentModelOpen] = useState(false);
 
   const handleLikeClick = () => {
     setLikes((prevLikes) => prevLikes + 1);
@@ -30,7 +32,14 @@ const MealPost = ({ meal }) => {
   };
 
   const handleCommentClick = () => {
-    setReplyModelOpen(true);
+    setCommentModelOpen(true);
+  };
+
+  const handleAddComment = (comment) => {
+    // Add comment to local state
+    setComments([...comments, comment]);
+    // Pass comment to parent component
+    onAddComment(id, comment);
   };
 
   const handleEditPost = () => {
@@ -42,7 +51,8 @@ const MealPost = ({ meal }) => {
     setImageUrl(editedImageUrl);
     setIsEditing(false);
   };
-  const handleDeletePost = (id) => {
+
+  const handleDeletePost = () => {
     // Placeholder logic for deleting post
     console.log("Delete Post", id);
   };
@@ -70,7 +80,7 @@ const MealPost = ({ meal }) => {
           <IconButton onClick={handleEditPost}>
             <EditIcon />
           </IconButton>
-          <IconButton onClick={() => handleDeletePost(id)}>
+          <IconButton onClick={handleDeletePost}>
             <DeleteIcon />
           </IconButton>
         </div>
@@ -84,16 +94,32 @@ const MealPost = ({ meal }) => {
           </IconButton>
         </div>
       </div>
-      <ReplyModel
-        open={replyModelOpen}
-        handleClose={() => setReplyModelOpen(false)}
-      />
+
       {isEditing && (
         <EditPost
           initialCaption={caption}
           initialImageUrl={imageUrl}
           onSubmit={handleEditSubmit}
           onCancel={() => setIsEditing(false)}
+        />
+      )}
+
+      {comments.length > 0 && (
+        <div className="mt-4">
+          <h3 className="font-semibold">Comments:</h3>
+          {comments.map((comment, index) => (
+            <div key={index} className="mt-2">
+              {comment}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {commentModelOpen && (
+        <CommentModel
+          postId={id}
+          onAddComment={handleAddComment}
+          onClose={() => setCommentModelOpen(false)}
         />
       )}
     </div>
