@@ -12,35 +12,39 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useDispatch } from "react-redux";
-import {
-  incrementLikes,
-  deletePost,
-  updatePost,
-  deletePostFailure,
-} from "../Store/Action";
+import { incrementLikes, deletePost, deletePostFailure } from "../Store/Action";
 import EditPost from "./EditPost";
 import CommentModel from "./CommentModel";
 
 const MealPost = ({ meal, onAddComment }) => {
   const dispatch = useDispatch();
+
+  // Destructure meal object safely with default values
   const {
     username = "John Doe",
     profileImage = "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600",
-  } = meal;
+    data: { id, caption, imageUrl } = {},
+  } = meal || {}; // Ensure meal is defined before destructuring
+
   const [likes, setLikes] = useState(0);
-  const [id, setId] = useState(meal.data.id);
-  const [caption, setCaption] = useState(meal.data.caption);
-  const [imageUrl, setImageUrl] = useState(meal.data.imageUrl);
   const [comments, setComments] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [commentModelOpen, setCommentModelOpen] = useState(false);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
 
+  // Declare state variables for id, caption, and imageUrl
+  const [postId, setPostId] = useState(id);
+  const [postCaption, setPostCaption] = useState(caption);
+  const [postImageUrl, setPostImageUrl] = useState(imageUrl);
+
   useEffect(() => {
     // Update local state when meal prop changes
-    setId(meal.data.id);
-    setCaption(meal.data.caption);
-    setImageUrl(meal.data.imageUrl);
+    if (meal && meal.data) {
+      const { id, caption, imageUrl } = meal.data;
+      setPostId(id);
+      setPostCaption(caption);
+      setPostImageUrl(imageUrl);
+    }
   }, [meal]);
 
   const handleLikeClick = () => {
@@ -56,7 +60,7 @@ const MealPost = ({ meal, onAddComment }) => {
     // Add comment to local state
     setComments([...comments, comment]);
     // Pass comment to parent component
-    onAddComment(id, comment);
+    onAddComment(postId, comment);
   };
 
   const handleEditPost = () => {
@@ -64,8 +68,8 @@ const MealPost = ({ meal, onAddComment }) => {
   };
 
   const handleEditSubmit = (editedCaption, editedImageUrl) => {
-    setCaption(editedCaption);
-    setImageUrl(editedImageUrl);
+    setPostCaption(editedCaption);
+    setPostImageUrl(editedImageUrl);
     setIsEditing(false);
   };
 
@@ -76,7 +80,7 @@ const MealPost = ({ meal, onAddComment }) => {
 
   const handleConfirmDelete = () => {
     // Dispatch the deletePost action with the postId
-    dispatch(deletePost(id))
+    dispatch(deletePost(postId))
       .catch((error) => {
         // Handle delete post failure
         dispatch(deletePostFailure(error));
@@ -94,7 +98,7 @@ const MealPost = ({ meal, onAddComment }) => {
   };
 
   return (
-    <div className="p-4 border rounded-md shadow-md bg-white margin">
+    <div className="p-4 border rounded-md shadow-md bg-white">
       <div className="flex items-center mb-2">
         <img
           src={profileImage}
@@ -103,14 +107,16 @@ const MealPost = ({ meal, onAddComment }) => {
         />
         <span className="font-bold mr-2">{username}</span>
       </div>
-      <div className="flex items-center mb-2">
-        <img
-          src={imageUrl}
-          alt="Uploaded"
-          className="object-cover rounded-md ml-2"
-        />
-      </div>
-      <div className="flex items-center mb-2">{caption}</div>
+      {postImageUrl && (
+        <div className="flex items-center mb-2">
+          <img
+            src={postImageUrl} // Render the imageUrl here
+            alt="Uploaded"
+            className="object-cover rounded-md ml-2"
+          />
+        </div>
+      )}
+      <div className="flex items-center mb-2">{postCaption}</div>
       <div className="flex items-center justify-between">
         <div>
           <IconButton onClick={handleEditPost}>
@@ -133,8 +139,8 @@ const MealPost = ({ meal, onAddComment }) => {
 
       {isEditing && (
         <EditPost
-          initialCaption={caption}
-          initialImageUrl={imageUrl}
+          initialCaption={postCaption}
+          initialImageUrl={postImageUrl}
           onSubmit={handleEditSubmit}
           onCancel={() => setIsEditing(false)}
         />
@@ -153,7 +159,7 @@ const MealPost = ({ meal, onAddComment }) => {
 
       {commentModelOpen && (
         <CommentModel
-          postId={id}
+          postId={postId}
           onAddComment={handleAddComment}
           onClose={() => setCommentModelOpen(false)}
         />

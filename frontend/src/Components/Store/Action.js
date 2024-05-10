@@ -1,4 +1,3 @@
-// actions.js
 import axios from "../Config/axios";
 import {
   FETCH_POSTS_REQUEST,
@@ -41,7 +40,7 @@ export const addPost = (postData) => {
     dispatch({ type: ADD_POST_REQUEST });
     try {
       const response = await axios.post("/api/posts", postData);
-      dispatch({ type: ADD_POST_SUCCESS, payload: response });
+      dispatch({ type: ADD_POST_SUCCESS, payload: response.data }); // Assuming response.data contains the added post
     } catch (error) {
       dispatch({ type: ADD_POST_FAILURE, payload: error.message });
     }
@@ -65,14 +64,11 @@ export const deletePost = (postId) => {
     dispatch({ type: DELETE_POST_REQUEST });
     try {
       await axios.delete(`/posts/${postId}`);
-      // Dispatch DELETE_POST_SUCCESS action without storing headers
       dispatch({ type: DELETE_POST_SUCCESS, payload: postId });
     } catch (error) {
-      // Extract relevant information from the error response headers
       const errorMessage = error.response
         ? error.response.data.message
         : "Unknown error";
-      // Dispatch DELETE_POST_FAILURE action with only serializable payload
       dispatch({ type: DELETE_POST_FAILURE, payload: errorMessage });
     }
   };
@@ -80,7 +76,6 @@ export const deletePost = (postId) => {
 
 // Add deletePostFailure action creator
 export const deletePostFailure = (error) => {
-  // Extract the error message from the error object
   const errorMessage = error.response
     ? error.response.data.message
     : "Unknown error";
@@ -107,7 +102,6 @@ export const addComment = (postId, commentData) => {
   return async (dispatch) => {
     dispatch({ type: ADD_COMMENT_REQUEST });
     try {
-      // const response = await axios.post(`/posts/${postId}/comments`, commentData);
       dispatch({ type: ADD_COMMENT_SUCCESS, payload: commentData });
     } catch (error) {
       dispatch({ type: ADD_COMMENT_FAILURE, payload: error.message });
@@ -126,6 +120,7 @@ export const deleteComment = (postId, commentId) => {
     }
   };
 };
+
 export const incrementLikes = () => {
   return {
     type: "INCREMENT_LIKES",

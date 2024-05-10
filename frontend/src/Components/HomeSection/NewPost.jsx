@@ -19,43 +19,27 @@ const NewPost = () => {
     setImage(e.target.files[0]);
   };
 
-  const handlePostClick = async () => {
-    if (image && caption) {
-      try {
-        const fileName =
-          "paf_sfa_" + uuidv4() + "." + image.name.split(".").pop();
-        await uploadToS3(image, fileName);
-        // Upload image to Cloudinary
+const handlePostClick = async () => {
+  if (image && caption) {
+    try {
+      const fileName =
+        "paf_sfa_" + uuidv4() + "." + image.name.split(".").pop();
+      await uploadToS3(image, fileName);
 
-        //const data = await response.json();
-        //const imageUrl = data.secure_url;
+      // Construct the full S3 URL
+      const imageUrl = `https://${S3_BUCKET_NAME}.s3.${S3_BUCKET_REGION}.amazonaws.com/${fileName}`;
 
-        // Placeholder image URL
-        const imageUrl = `https://${S3_BUCKET_NAME}.s3.${S3_BUCKET_REGION}.amazonaws.com/${fileName}`;
+      // Dispatch action to add post
+      dispatch(addPost({ caption, imageUrl }));
 
-        // Dispatch action to add post
-        dispatch(addPost({ caption, imageUrl }));
-        /*
-        const response = await fetch("http://localhost:8080/api/posts", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ caption, imageUrl }),
-        });
-
-        const json = await response.json();
-        console.log("Post added:", json);
-*/
-
-        // Reset form
-        setCaption("");
-        setImage(null);
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
+      // Reset form
+      setCaption("");
+      setImage(null);
+    } catch (error) {
+      console.error("Error uploading image:", error);
     }
-  };
+  }
+};
 
   return (
     <div className="p-4 border rounded-md shadow-md bg-white">
