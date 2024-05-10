@@ -1,5 +1,5 @@
 // actions.js
-import axios from "axios";
+import axios from "../Config/axios";
 import {
   FETCH_POSTS_REQUEST,
   FETCH_POSTS_SUCCESS,
@@ -40,8 +40,8 @@ export const addPost = (postData) => {
   return async (dispatch) => {
     dispatch({ type: ADD_POST_REQUEST });
     try {
-      // const response = await axios.post("/api/posts", postData);
-      dispatch({ type: ADD_POST_SUCCESS, payload: postData });
+      const response = await axios.post("/api/posts", postData);
+      dispatch({ type: ADD_POST_SUCCESS, payload: response });
     } catch (error) {
       dispatch({ type: ADD_POST_FAILURE, payload: error.message });
     }

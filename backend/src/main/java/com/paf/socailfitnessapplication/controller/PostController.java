@@ -28,12 +28,13 @@ public class PostController {
         return post.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
+    
     @GetMapping
     public ResponseEntity<List<Post>> getAllPosts() {
         List<Post> posts = postService.getAllPosts();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
+
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Post>> getAllPostsByUserId(@PathVariable String userId) {
