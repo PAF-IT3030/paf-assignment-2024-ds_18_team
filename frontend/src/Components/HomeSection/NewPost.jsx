@@ -3,12 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import { IconButton, Button } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-
 import { useDispatch } from "react-redux";
 import { addPost } from "../Store/Action";
-
 import { uploadToS3 } from "../Config/awsS3";
 
 const NewPost = () => {
@@ -61,16 +57,6 @@ const NewPost = () => {
     }
   };
 
-  const handleEditPost = () => {
-    // Placeholder logic for editing post
-    console.log("Edit Post");
-  };
-
-  const handleDeletePost = () => {
-    // Placeholder logic for deleting post
-    console.log("Delete Post");
-  };
-
   return (
     <div className="p-4 border rounded-md shadow-md bg-white">
       <textarea
@@ -108,12 +94,6 @@ const NewPost = () => {
           </IconButton>
         </div>
         <div>
-          <IconButton onClick={() => handleEditPost()}>
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={() => handleDeletePost()}>
-            <DeleteIcon />
-          </IconButton>
           <Button
             variant="contained"
             onClick={handlePostClick}

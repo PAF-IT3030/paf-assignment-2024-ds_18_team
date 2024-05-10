@@ -1,11 +1,23 @@
-import React, { useState } from "react";
-import { IconButton } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useDispatch } from "react-redux";
-import { incrementLikes } from "../Store/Action";
+import {
+  incrementLikes,
+  deletePost,
+  updatePost,
+  deletePostFailure,
+} from "../Store/Action";
 import EditPost from "./EditPost";
 import CommentModel from "./CommentModel";
 
@@ -20,9 +32,16 @@ const MealPost = ({ meal, onAddComment }) => {
   const [caption, setCaption] = useState(meal.data.caption);
   const [imageUrl, setImageUrl] = useState(meal.data.imageUrl);
   const [comments, setComments] = useState([]);
-
   const [isEditing, setIsEditing] = useState(false);
   const [commentModelOpen, setCommentModelOpen] = useState(false);
+  const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
+
+  useEffect(() => {
+    // Update local state when meal prop changes
+    setId(meal.data.id);
+    setCaption(meal.data.caption);
+    setImageUrl(meal.data.imageUrl);
+  }, [meal]);
 
   const handleLikeClick = () => {
     setLikes((prevLikes) => prevLikes + 1);
@@ -51,8 +70,27 @@ const MealPost = ({ meal, onAddComment }) => {
   };
 
   const handleDeletePost = () => {
-    // Placeholder logic for deleting post
-    console.log("Delete Post", id);
+    // Open the delete confirmation dialog
+    setDeleteConfirmationOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    // Dispatch the deletePost action with the postId
+    dispatch(deletePost(id))
+      .catch((error) => {
+        // Handle delete post failure
+        dispatch(deletePostFailure(error));
+      })
+      .finally(() => {
+        // Close the delete confirmation dialog
+        setDeleteConfirmationOpen(false);
+      });
+    // You can also perform other necessary operations here
+  };
+
+  const handleCloseDeleteConfirmation = () => {
+    // Close the delete confirmation dialog without deleting the post
+    setDeleteConfirmationOpen(false);
   };
 
   return (
@@ -120,6 +158,22 @@ const MealPost = ({ meal, onAddComment }) => {
           onClose={() => setCommentModelOpen(false)}
         />
       )}
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteConfirmationOpen}
+        onClose={handleCloseDeleteConfirmation}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this post?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteConfirmation}>Cancel</Button>
+          <Button onClick={handleConfirmDelete} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

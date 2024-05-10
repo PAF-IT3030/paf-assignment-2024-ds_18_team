@@ -65,12 +65,32 @@ export const deletePost = (postId) => {
     dispatch({ type: DELETE_POST_REQUEST });
     try {
       await axios.delete(`/posts/${postId}`);
+      // Dispatch DELETE_POST_SUCCESS action without storing headers
       dispatch({ type: DELETE_POST_SUCCESS, payload: postId });
     } catch (error) {
-      dispatch({ type: DELETE_POST_FAILURE, payload: error.message });
+      // Extract relevant information from the error response headers
+      const errorMessage = error.response
+        ? error.response.data.message
+        : "Unknown error";
+      // Dispatch DELETE_POST_FAILURE action with only serializable payload
+      dispatch({ type: DELETE_POST_FAILURE, payload: errorMessage });
     }
   };
 };
+
+// Add deletePostFailure action creator
+export const deletePostFailure = (error) => {
+  // Extract the error message from the error object
+  const errorMessage = error.response
+    ? error.response.data.message
+    : "Unknown error";
+
+  return {
+    type: DELETE_POST_FAILURE,
+    payload: errorMessage, // Store only the error message
+  };
+};
+
 export const fetchComments = (postId) => {
   return async (dispatch) => {
     dispatch({ type: FETCH_COMMENT_REQUEST });

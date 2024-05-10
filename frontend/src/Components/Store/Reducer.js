@@ -65,7 +65,6 @@ export const postReducer = (state = initialState, action) => {
         loading: false,
         posts: updatedPosts,
       };
-
     case DELETE_POST_SUCCESS:
       const filteredPosts = state.posts.filter(
         (post) => post.id !== action.payload
@@ -99,14 +98,19 @@ export const postReducer = (state = initialState, action) => {
     case FETCH_POSTS_FAILURE:
     case ADD_POST_FAILURE:
     case UPDATE_POST_FAILURE:
-    case DELETE_POST_FAILURE:
     case FETCH_COMMENT_FAILURE:
     case ADD_COMMENT_FAILURE:
     case DELETE_COMMENT_FAILURE:
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: action.payload, // Store only the error message
+      };
+    case DELETE_POST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload, // Store only the error message
       };
     default:
       return state;
