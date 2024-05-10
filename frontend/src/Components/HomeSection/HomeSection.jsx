@@ -25,7 +25,6 @@ const HomeSection = ({ meals, dispatch }) => {
           <MealPost
             key={index}
             meal={meal}
-            imageUrl={meal.imageUrl}
             onAddComment={handleAddComment} // Pass onAddComment function
           />
         ))}

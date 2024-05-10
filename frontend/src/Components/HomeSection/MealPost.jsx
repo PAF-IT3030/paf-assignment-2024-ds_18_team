@@ -12,15 +12,13 @@ import CommentModel from "./CommentModel";
 const MealPost = ({ meal, onAddComment }) => {
   const dispatch = useDispatch();
   const {
-    id,
     username = "John Doe",
     profileImage = "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600",
-    caption: initialCaption,
-    imageUrl: initialImageUrl,
   } = meal;
   const [likes, setLikes] = useState(0);
-  const [caption, setCaption] = useState(initialCaption);
-  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+  const [id, setId] = useState(meal.data.id);
+  const [caption, setCaption] = useState(meal.data.caption);
+  const [imageUrl, setImageUrl] = useState(meal.data.imageUrl);
   const [comments, setComments] = useState([]);
 
   const [isEditing, setIsEditing] = useState(false);
