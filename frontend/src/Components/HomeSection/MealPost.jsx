@@ -39,8 +39,8 @@ const MealPost = ({ meal, onAddComment }) => {
 
   useEffect(() => {
     // Update local state when meal prop changes
-    if (meal && meal.data) {
-      const { id, caption, imageUrl } = meal.data;
+    if (meal) {
+      const { id, caption, imageUrl } = meal;
       setPostId(id);
       setPostCaption(caption);
       setPostImageUrl(imageUrl);
