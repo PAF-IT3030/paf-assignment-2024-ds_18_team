@@ -53,7 +53,7 @@ export const updatePost = (postId, updatedPostData) => {
     dispatch({ type: UPDATE_POST_REQUEST });
     try {
       const response = await axios.put(`/posts/${postId}`, updatedPostData);
-      dispatch({ type: UPDATE_POST_SUCCESS, payload: response.data });
+      dispatch({ type: UPDATE_POST_SUCCESS, payload: response.data }); // Assuming response.data contains the updated post data
     } catch (error) {
       dispatch({ type: UPDATE_POST_FAILURE, payload: error.message });
     }

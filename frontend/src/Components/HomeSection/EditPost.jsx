@@ -3,6 +3,7 @@ import { Button, TextField } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { updatePost } from "../Store/Action";
 import { uploadToS3 } from "../Config/awsS3";
+import { v4 as uuidv4 } from "uuid";
 
 const EditPost = ({
   initialCaption,
@@ -14,6 +15,9 @@ const EditPost = ({
   const dispatch = useDispatch();
   const [caption, setCaption] = useState(initialCaption);
   const [image, setImage] = useState(null);
+
+  const S3_BUCKET_NAME = process.env.REACT_APP_S3_BUCKET_NAME;
+  const S3_BUCKET_REGION = process.env.REACT_APP_S3_BUCKET_REGION;
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
