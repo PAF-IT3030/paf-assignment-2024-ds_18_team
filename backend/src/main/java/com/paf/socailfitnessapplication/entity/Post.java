@@ -18,7 +18,7 @@ public class Post {
     @Id
     private String id;
     private String userId;
-    private List<String> imgLinks;
+    private String imageUrl;
     private String caption;
     private List<Like> likes;
     private List<Comment> comments;

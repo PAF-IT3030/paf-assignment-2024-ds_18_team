@@ -11,7 +11,7 @@ import java.util.List;
 public class PostDTO {
     private String id;
     private String userId;
-    private List<String> imgLink;
+    private String imageUrl;
     private String caption;
     private List<String> likedby;
     private Date createdAt;
