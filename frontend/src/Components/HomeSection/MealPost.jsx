@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useDispatch } from "react-redux";
-import { incrementLikes, deletePost, deletePostFailure } from "../Store/Action";
+import { incrementLikes, deletePost, deletePostFailure,updatePost } from "../Store/Action";
 import EditPost from "./EditPost";
 import CommentModel from "./CommentModel";
 
@@ -67,12 +67,18 @@ const MealPost = ({ meal, onAddComment }) => {
     setIsEditing(true);
   };
 
-  const handleEditSubmit = (editedCaption, editedImageUrl) => {
-    setPostCaption(editedCaption);
-    setPostImageUrl(editedImageUrl);
+const handleEditSubmit = async (editedCaption, editedImageUrl) => {
+  try {
+    // Dispatch the updatePost action with the edited post data
+    dispatch(
+      updatePost(postId, { caption: editedCaption, imageUrl: editedImageUrl })
+    );
     setIsEditing(false);
-  };
-
+  } catch (error) {
+    console.error("Error updating post:", error);
+    // Handle error if update fails
+  }
+};
   const handleDeletePost = () => {
     // Open the delete confirmation dialog
     setDeleteConfirmationOpen(true);

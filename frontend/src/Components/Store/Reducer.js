@@ -56,10 +56,8 @@ export const postReducer = (state = initialState, action) => {
         posts: [...state.posts, action.payload],
       };
     case UPDATE_POST_SUCCESS:
-      const updatedPost = action.payload; // Assuming action.payload contains only the updated post data
-      const updatedPosts = state.posts.map((post) =>
-        post.id === updatedPost.id ? updatedPost : post
-      );
+      const { postId, post } = action.payload;
+      const updatedPosts = state.posts.map((p) => (p.id === postId ? post : p));
       return {
         ...state,
         loading: false,
