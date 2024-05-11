@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { incrementLikes, deletePost, deletePostFailure,updatePost } from "../Store/Action";
 import EditPost from "./EditPost";
 import CommentModel from "./CommentModel";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const MealPost = ({ meal, onAddComment }) => {
   const dispatch = useDispatch();
@@ -74,9 +76,11 @@ const handleEditSubmit = async (editedCaption, editedImageUrl) => {
       updatePost(postId, { caption: editedCaption, imageUrl: editedImageUrl })
     );
     setIsEditing(false);
+    toast.success("Post updated successfully!"); // Display success toast
   } catch (error) {
     console.error("Error updating post:", error);
     // Handle error if update fails
+    toast.error("Error updating post. Please try again later."); // Display error toast
   }
 };
   const handleDeletePost = () => {
