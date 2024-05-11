@@ -34,6 +34,10 @@ export const postReducer = (state = initialState, action) => {
     case FETCH_POSTS_REQUEST:
     case ADD_POST_REQUEST:
     case UPDATE_POST_REQUEST:
+      // Add loading state if needed
+      return {
+        ...state,
+      };
     case DELETE_POST_REQUEST:
     case FETCH_COMMENT_REQUEST:
     case ADD_COMMENT_REQUEST:
@@ -56,12 +60,14 @@ export const postReducer = (state = initialState, action) => {
         posts: [...state.posts, action.payload],
       };
     case UPDATE_POST_SUCCESS:
-      const { postId, post } = action.payload;
-      const updatedPosts = state.posts.map((p) => (p.id === postId ? post : p));
+      // Update the post in the state if successful
+      const updatedPost = action.payload.post;
       return {
         ...state,
-        loading: false,
-        posts: updatedPosts,
+        // Update the post with matching postId
+        posts: state.posts.map((post) =>
+          post._id === action.payload.postId ? updatedPost : post
+        ),
       };
     case DELETE_POST_SUCCESS:
       const filteredPosts = state.posts.filter(
@@ -96,6 +102,13 @@ export const postReducer = (state = initialState, action) => {
     case FETCH_POSTS_FAILURE:
     case ADD_POST_FAILURE:
     case UPDATE_POST_FAILURE:
+      // Handle the failure case
+      console.error("Error updating post:", action.payload);
+      // You can update state with an error message if needed
+      return {
+        ...state,
+        error: action.payload,
+      };
     case FETCH_COMMENT_FAILURE:
     case ADD_COMMENT_FAILURE:
     case DELETE_COMMENT_FAILURE:

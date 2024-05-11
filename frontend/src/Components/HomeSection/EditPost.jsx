@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { updatePost } from "../Store/Action";
 import { uploadToS3 } from "../Config/awsS3";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 const EditPost = ({
   initialCaption,
@@ -33,10 +34,14 @@ const EditPost = ({
         updatedImageUrl = `https://${S3_BUCKET_NAME}.s3.${S3_BUCKET_REGION}.amazonaws.com/${fileName}`;
       }
 
+      // Dispatch updatePost action with postId and updated post data
       dispatch(updatePost(postId, { caption, imageUrl: updatedImageUrl }));
       onSubmit(); // Close the edit form
+      toast.success("Post updated successfully!"); // Display success toast
     } catch (error) {
       console.error("Error updating post:", error);
+      // Handle error if update fails
+      toast.error("Error updating post. Please try again later."); // Display error toast
     }
   };
 

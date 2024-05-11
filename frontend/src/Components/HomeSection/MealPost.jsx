@@ -12,7 +12,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useDispatch } from "react-redux";
-import { incrementLikes, deletePost, deletePostFailure,updatePost } from "../Store/Action";
+import { incrementLikes, deletePost, deletePostFailure, updatePost } from "../Store/Action";
 import EditPost from "./EditPost";
 import CommentModel from "./CommentModel";
 import "react-toastify/dist/ReactToastify.css";
@@ -69,20 +69,21 @@ const MealPost = ({ meal, onAddComment }) => {
     setIsEditing(true);
   };
 
-const handleEditSubmit = async (editedCaption, editedImageUrl) => {
-  try {
-    // Dispatch the updatePost action with the edited post data
-    dispatch(
-      updatePost(postId, { caption: editedCaption, imageUrl: editedImageUrl })
-    );
-    setIsEditing(false);
-    toast.success("Post updated successfully!"); // Display success toast
-  } catch (error) {
-    console.error("Error updating post:", error);
-    // Handle error if update fails
-    toast.error("Error updating post. Please try again later."); // Display error toast
-  }
-};
+  const handleEditSubmit = async (editedCaption, editedImageUrl) => {
+    try {
+      // Dispatch the updatePost action with the edited post data
+      dispatch(
+        updatePost(postId, { caption: editedCaption, imageUrl: editedImageUrl })
+      );
+      setIsEditing(false);
+      toast.success("Post updated successfully!"); // Display success toast
+    } catch (error) {
+      console.error("Error updating post:", error);
+      // Handle error if update fails
+      toast.error("Error updating post. Please try again later."); // Display error toast
+    }
+  };
+
   const handleDeletePost = () => {
     // Open the delete confirmation dialog
     setDeleteConfirmationOpen(true);
@@ -151,6 +152,7 @@ const handleEditSubmit = async (editedCaption, editedImageUrl) => {
         <EditPost
           initialCaption={postCaption}
           initialImageUrl={postImageUrl}
+          postId={postId} // Pass postId to EditPost component
           onSubmit={handleEditSubmit}
           onCancel={() => setIsEditing(false)}
         />

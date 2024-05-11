@@ -49,11 +49,16 @@ export const addPost = (postData) => {
 
 export const updatePost = (postId, updatedPostData) => {
   return async (dispatch) => {
+    // Check if postId is undefined
+    if (!postId) {
+      // Dispatch an action indicating update failure
+      dispatch({ type: UPDATE_POST_FAILURE, payload: "Post ID is undefined" });
+      return; // Exit early
+    }
+
     dispatch({ type: UPDATE_POST_REQUEST });
     try {
-      // Assuming your backend returns the updated post data in the response
       const response = await axios.put(`/api/posts/${postId}`, updatedPostData);
-      // Dispatch UPDATE_POST_SUCCESS with the postId and updated post data
       dispatch({
         type: UPDATE_POST_SUCCESS,
         payload: { postId, post: response.data },
