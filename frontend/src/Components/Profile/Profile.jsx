@@ -143,7 +143,7 @@ const Profile = () => {
               </TabList>
             </Box>
             <TabPanel value="1">
-              {[1, 1, 1, 1].map((item, index) => (
+              {[1].map((item, index) => (
                 <MealPost key={index} />
               ))}
             </TabPanel>

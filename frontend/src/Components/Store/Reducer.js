@@ -32,6 +32,11 @@ const initialState = {
 export const postReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_POSTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
     case ADD_POST_REQUEST:
     case UPDATE_POST_REQUEST:
       // Add loading state if needed
@@ -100,6 +105,11 @@ export const postReducer = (state = initialState, action) => {
         comments: filteredComments,
       };
     case FETCH_POSTS_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
     case ADD_POST_FAILURE:
     case UPDATE_POST_FAILURE:
       // Handle the failure case

@@ -12,7 +12,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ChatIcon from "@mui/icons-material/Chat";
 import { useDispatch } from "react-redux";
-import { incrementLikes, deletePost, deletePostFailure, updatePost } from "../Store/Action";
+import {
+  incrementLikes,
+  deletePost,
+  deletePostFailure,
+  updatePost,
+} from "../Store/Action";
 import EditPost from "./EditPost";
 import CommentModel from "./CommentModel";
 import "react-toastify/dist/ReactToastify.css";
@@ -92,9 +97,13 @@ const MealPost = ({ meal, onAddComment }) => {
   const handleConfirmDelete = () => {
     // Dispatch the deletePost action with the postId
     dispatch(deletePost(postId))
+      .then(() => {
+        toast.success("Post deleted successfully!"); // Display success toast
+      })
       .catch((error) => {
         // Handle delete post failure
         dispatch(deletePostFailure(error));
+        toast.error("Error deleting post. Please try again later.");
       })
       .finally(() => {
         // Close the delete confirmation dialog
