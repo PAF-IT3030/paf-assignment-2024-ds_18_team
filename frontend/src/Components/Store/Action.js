@@ -51,19 +51,25 @@ export const updatePost = (postId, updatedPostData) => {
   return async (dispatch) => {
     dispatch({ type: UPDATE_POST_REQUEST });
     try {
-      const response = await axios.put(`/posts/${postId}`, updatedPostData);
-      dispatch({ type: UPDATE_POST_SUCCESS, payload: response.data }); // Assuming response.data contains the updated post data
+      // Assuming your backend returns the updated post data in the response
+      const response = await axios.put(`/api/posts/${postId}`, updatedPostData);
+      // Dispatch UPDATE_POST_SUCCESS with the postId and updated post data
+      dispatch({
+        type: UPDATE_POST_SUCCESS,
+        payload: { postId, post: response.data },
+      });
     } catch (error) {
       dispatch({ type: UPDATE_POST_FAILURE, payload: error.message });
     }
   };
 };
 
+
 export const deletePost = (postId) => {
   return async (dispatch) => {
     dispatch({ type: DELETE_POST_REQUEST });
     try {
-      await axios.delete(`/posts/${postId}`);
+      await axios.delete(`/api/posts/${postId}`);
       dispatch({ type: DELETE_POST_SUCCESS, payload: postId });
     } catch (error) {
       const errorMessage = error.response
@@ -74,7 +80,6 @@ export const deletePost = (postId) => {
   };
 };
 
-// Add deletePostFailure action creator
 export const deletePostFailure = (error) => {
   const errorMessage = error.response
     ? error.response.data.message
@@ -82,7 +87,7 @@ export const deletePostFailure = (error) => {
 
   return {
     type: DELETE_POST_FAILURE,
-    payload: errorMessage, // Store only the error message
+    payload: errorMessage,
   };
 };
 

@@ -1,10 +1,3 @@
-import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { updatePost } from "../Store/Action";
-import { uploadToS3 } from "../Config/awsS3";
-import { v4 as uuidv4 } from "uuid";
-
 const EditPost = ({
   initialCaption,
   initialImageUrl,
@@ -33,8 +26,13 @@ const EditPost = ({
         updatedImageUrl = `https://${S3_BUCKET_NAME}.s3.${S3_BUCKET_REGION}.amazonaws.com/${fileName}`;
       }
 
-      dispatch(updatePost(postId, { caption, imageUrl: updatedImageUrl }));
-      onSubmit(); // Close the edit form
+      // Dispatch the updatePost action with the postId and edited post data
+      await dispatch(
+        updatePost(postId, { caption, imageUrl: updatedImageUrl })
+      );
+
+      // Call the onSubmit callback to close the edit form
+      onSubmit();
     } catch (error) {
       console.error("Error updating post:", error);
     }
